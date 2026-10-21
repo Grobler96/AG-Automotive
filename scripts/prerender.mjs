@@ -13,9 +13,10 @@ const app = readFileSync('src/App.tsx', 'utf8');
 const routes = [...app.matchAll(/path="\/([a-z0-9-]+)"/g)].map((m) => `/${m[1]}`);
 if (routes.length === 0) throw new Error('No routes found in src/App.tsx');
 
-const { render } = await import(pathToFileURL('dist-ssr/entry-server.js').href);
+const { render, businessSchema } = await import(pathToFileURL('dist-ssr/entry-server.js').href);
 const template = readFileSync('dist/index.html', 'utf8');
 if (!template.includes('<div id="root"></div>')) throw new Error('dist/index.html is missing the empty root element');
+if (!template.includes('<!--business-schema-->')) throw new Error('index.html is missing the business-schema marker');
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 // GitHub Pages serves every page from a folder, so the real address ends in a slash
 const pageUrl = (path) => `${SITE_URL}${path === '/' ? '/' : `${path}/`}`;
@@ -31,6 +32,17 @@ function jsonLd(path, meta) {
         { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
         { '@type': 'ListItem', position: 2, name: meta.crumb, item: pageUrl(path) },
       ],
+    });
+  }
+  if (meta.service) {
+    blocks.push({
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: meta.service,
+      serviceType: meta.service,
+      url: pageUrl(path),
+      provider: { '@id': `${SITE_URL}/#business` },
+      areaServed: { '@type': 'AdministrativeArea', name: 'West Yorkshire' },
     });
   }
   if (meta.city) {
@@ -61,6 +73,8 @@ function page(path, meta, route) {
   swap(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${esc(meta.title)}" />`);
   swap(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${esc(meta.description)}" />`);
   if (meta.noindex) html = html.replace('<meta charset="UTF-8" />', '<meta charset="UTF-8" />\n    <meta name="robots" content="noindex" />');
+  // the business data comes from src/config/site.ts, so the hours, phone and services in Google always match the page
+  html = html.replace('<!--business-schema-->', () => `<script type="application/ld+json">${JSON.stringify(businessSchema(SITE_URL))}</script>`);
   const extra = jsonLd(path, meta);
   if (extra) html = html.replace('</head>', () => `    ${extra}\n  </head>`);
   html = html.replace('<div id="root"></div>', () => `<div id="root">${render(route)}</div>`);

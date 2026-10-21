@@ -1,7 +1,7 @@
 {
   "/": {
     "title": "Mobile Mechanic in West Yorkshire | AG Automotive",
-    "description": "AG Automotive is a mobile mechanic covering all of West Yorkshire: servicing, repairs and wet belt changes. We come to you. Call 07375 419123.",
+    "description": "AG Automotive is a mobile mechanic for cars, vans and motorhomes covering all of West Yorkshire. Servicing, repairs and wet belts. Call 07375 419123.",
     "crumb": "Home"
   },
   "/wet-belt-changes": {
@@ -9,21 +9,27 @@
     "description": "Mobile wet belt changes across West Yorkshire. What a wet belt is, the warning signs to check and how AG Automotive comes to you. Call 07375 419123.",
     "crumb": "Wet belt changes"
   },
+  "/ford-transit-wet-belt-replacement": {
+    "title": "Ford Transit Wet Belt Replacement | AG Automotive",
+    "description": "Wet belt problems in your Ford Transit? AG Automotive is a mobile mechanic covering West Yorkshire. We come to you. Call 07375 419123.",
+    "service": "Ford Transit wet belt replacement",
+    "crumb": "Ford Transit wet belt replacement"
+  },
   "/mobile-mechanic-leeds": {
     "title": "Mobile Mechanic Leeds | Repairs & Wet Belt Changes",
-    "description": "Mobile mechanic in Leeds for servicing, repairs and wet belt changes. AG Automotive comes to you. Call 07375 419123 for a quote.",
+    "description": "Mobile mechanic in Leeds for cars, vans and motorhomes: servicing, repairs and wet belt changes. We come to you. Call 07375 419123.",
     "city": "Leeds",
     "crumb": "Mobile mechanic in Leeds"
   },
   "/mobile-mechanic-wakefield": {
     "title": "Mobile Mechanic Wakefield | Repairs & Wet Belt Changes",
-    "description": "Mobile mechanic in Wakefield for servicing, repairs and wet belt changes. AG Automotive comes to you. Call 07375 419123 for a quote.",
+    "description": "Mobile mechanic in Wakefield for cars, vans and motorhomes: servicing, repairs and wet belt changes. We come to you. Call 07375 419123.",
     "city": "Wakefield",
     "crumb": "Mobile mechanic in Wakefield"
   },
   "/mobile-mechanic-bradford": {
     "title": "Mobile Mechanic Bradford | Repairs & Wet Belt Changes",
-    "description": "Mobile mechanic in Bradford for servicing, repairs and wet belt changes. AG Automotive comes to you. Call 07375 419123 for a quote.",
+    "description": "Mobile mechanic in Bradford for cars, vans and motorhomes: servicing, repairs and wet belt changes. We come to you. Call 07375 419123.",
     "city": "Bradford",
     "crumb": "Mobile mechanic in Bradford"
   },

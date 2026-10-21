@@ -1,9 +1,10 @@
-import { AreasSection, Explainer, Faq, HowItWorks, QuoteSection, Reviews, Signs } from '@/components/Sections';
-import { wetBeltFaqs, wetBeltSteps } from '@/data/content';
+import { AreasSection, Explainer, Includes, WorkGallery, Wrap, Faq, HowItWorks, QuoteSection, Reviews, Signs } from '@/components/Sections';
+import { wetBeltFaqs, wetBeltIncludes, wetBeltSteps } from '@/data/content';
 import HeroLogo from '@/components/HeroLogo';
 import { useSEO } from '@/lib/useSEO';
 import { site, sms, tel } from '@/config/site';
-import { MessageSquare, Phone } from 'lucide-react';
+import { ArrowRight, MessageSquare, Phone } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function WetBelt() {
   useSEO();
@@ -24,6 +25,18 @@ export default function WetBelt() {
       </section>
       <Explainer />
       <Signs />
+      <Includes title={wetBeltIncludes.title} items={wetBeltIncludes.items} note={wetBeltIncludes.note} />
+      <WorkGallery />
+      <Wrap tone="carbon">
+        <div className="flex flex-wrap items-center justify-between gap-6 rounded-xl border border-lime/40 bg-panel p-6 sm:p-8">
+          <div>
+            <p className="mono">// Vans</p>
+            <h2 className="mt-2 font-display font-bold uppercase text-2xl sm:text-3xl">Own a Ford Transit?</h2>
+            <p className="mt-2 max-w-xl text-paper/75">Many Ford Transits are fitted with a wet belt. See the signs to look out for and what the job includes.</p>
+          </div>
+          <Link to="/ford-transit-wet-belt-replacement/" className="btn btn-lime">Ford Transit wet belts <ArrowRight size={16} aria-hidden="true" /></Link>
+        </div>
+      </Wrap>
       <HowItWorks items={wetBeltSteps} />
       <Reviews />
       <Faq items={wetBeltFaqs} title="Wet belt FAQs" />

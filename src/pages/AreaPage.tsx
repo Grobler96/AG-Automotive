@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { MessageSquare, Phone } from 'lucide-react';
-import { AreaIntro, AreasSection, Faq, HowItWorks, QuoteSection, Reviews, Services, Speciality } from '@/components/Sections';
+import { AreaIntro, AreasSection, VehicleBand, Faq, HowItWorks, QuoteSection, Reviews, Services, Speciality } from '@/components/Sections';
 import { areaByPath, areas } from '@/data/areas';
 import HeroLogo from '@/components/HeroLogo';
 import { useSEO } from '@/lib/useSEO';
@@ -30,6 +30,7 @@ export default function AreaPage() {
           </div>
         </div>
       </section>
+      <VehicleBand />
       <AreaIntro area={area} />
       <Speciality />
       <Services />

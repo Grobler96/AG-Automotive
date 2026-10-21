@@ -29,7 +29,7 @@ export default function Footer() {
             <li><a href={tel} className="hover:text-lime">{site.phoneDisplay}</a></li>
             {site.email && <li><a href={`mailto:${site.email}`} className="hover:text-lime">{site.email}</a></li>}
             {site.area && <li>{site.area}</li>}
-            {site.hours && <li>{site.hours}</li>}
+            {site.hours.map((h) => <li key={h}>{h}</li>)}
           </ul>
         </div>
       </div>

@@ -1,16 +1,42 @@
 import { useState, type FormEvent } from 'react';
-import { ArrowRight, MessageSquare, Phone } from 'lucide-react';
+import { ArrowRight, Check, Mail, MessageSquare, Phone } from 'lucide-react';
 import Reveal from './Reveal';
 import { Link } from 'react-router-dom';
 import { areas, type Area } from '@/data/areas';
+import { workIntro, workPhotos } from '@/data/work';
+import { asset } from '@/lib/asset';
 import { contactLines, explainer, faqs, intro, services, signs, speciality, steps } from '@/data/content';
 import { site, sms, tel } from '@/config/site';
 
-const Wrap = ({ id, children, tone = 'ink' }: { id?: string; children: React.ReactNode; tone?: 'ink' | 'carbon' }) => (
+export const Wrap = ({ id, children, tone = 'ink' }: { id?: string; children: React.ReactNode; tone?: 'ink' | 'carbon' }) => (
   <section id={id} className={`${tone === 'carbon' ? 'bg-carbon' : 'bg-ink'} border-t border-line scroll-mt-20`}>
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-16 sm:py-24">{children}</div>
   </section>
 );
+
+export { default as Reveal } from './Reveal';
+
+export function Includes({ title, items, note }: { title: string; items: string[]; note?: string }) {
+  return (
+    <Wrap>
+      <Reveal>
+        <p className="mono">// The job</p>
+        <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">{title}</h2>
+      </Reveal>
+      <ul className="mt-10 grid gap-4 md:grid-cols-3">
+        {items.map((t, i) => (
+          <Reveal key={t} delay={i * 0.06}>
+            <li className="h-full flex items-start gap-4 rounded-lg border border-line bg-panel p-5 list-none">
+              <Check size={22} aria-hidden="true" className="mt-0.5 shrink-0 text-lime" />
+              <span className="text-lg">{t}</span>
+            </li>
+          </Reveal>
+        ))}
+      </ul>
+      {note && <Reveal><p className="mt-8 max-w-3xl text-paper/70">{note}</p></Reveal>}
+    </Wrap>
+  );
+}
 
 export function Explainer() {
   return (
@@ -85,6 +111,43 @@ export function Speciality() {
   );
 }
 
+/** The lime strip from his flyer: what he works on, and where. */
+export function VehicleBand() {
+  return (
+    <div className="bg-lime text-ink">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex flex-wrap items-center justify-center gap-x-8 gap-y-1 font-display font-bold uppercase tracking-[0.25em] text-xs sm:text-sm">
+        <span>{site.vehicles.join(' · ')}</span>
+        <span className="hidden sm:inline opacity-50">/</span>
+        <span>Covering all {site.area}</span>
+      </div>
+    </div>
+  );
+}
+
+export function WorkGallery({ title = workIntro.title }: { title?: string }) {
+  return (
+    <Wrap tone="carbon">
+      <Reveal>
+        <p className="mono">// The work</p>
+        <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">{title}</h2>
+        <p className="mt-4 max-w-2xl text-paper/70">{workIntro.text}</p>
+      </Reveal>
+      <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        {workPhotos.map((p, i) => (
+          <Reveal key={p.src} delay={(i % 4) * 0.05} className="h-full">
+            <li className="list-none h-full">
+              <figure className="h-full flex flex-col overflow-hidden rounded-lg border border-line bg-panel">
+                <img src={asset(p.src)} alt={p.alt} width="900" height="1200" loading="lazy" decoding="async" className="w-full aspect-[3/4] object-cover" />
+                <figcaption className="flex-1 p-3 text-sm text-paper/75">{p.caption}</figcaption>
+              </figure>
+            </li>
+          </Reveal>
+        ))}
+      </ul>
+    </Wrap>
+  );
+}
+
 export function Services() {
   if (site.services.length === 0) return null;
   return (
@@ -97,13 +160,15 @@ export function Services() {
       <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {site.services.map((s, i) => (
           <Reveal key={s.title} delay={i * 0.05}>
-            <li className="h-full rounded-lg border border-line bg-panel p-5 list-none">
+            <li className={`h-full rounded-lg border bg-panel p-5 list-none ${s.highlight ? 'border-lime shadow-glow' : 'border-line'}`}>
+              {s.highlight && <p className="mono mb-2">Our speciality</p>}
               <h3 className="text-xl font-bold uppercase">{s.title}</h3>
               <p className="mt-2 text-paper/75">{s.text}</p>
             </li>
           </Reveal>
         ))}
       </ul>
+      <Reveal><p className="mt-8 text-lg text-paper/80">{services.more}</p></Reveal>
     </Wrap>
   );
 }
@@ -252,7 +317,7 @@ export function QuoteSection() {
           <p className="mt-5 text-paper/75 max-w-md">Send the make, model and year, what you need doing and where in {site.area} the car is. We will come back to you with a quote.</p>
           {contactLines.length > 0 && (
             <dl className="mt-6 space-y-1 text-paper/75">
-              {contactLines.map((l) => <div key={l.label} className="flex gap-3"><dt className="mono !text-paper/50 w-14 pt-1">{l.label}</dt><dd>{l.value}</dd></div>)}
+              {contactLines.map((l) => <div key={l.label} className="flex gap-3"><dt className="mono !text-paper/50 w-14 pt-1">{l.label}</dt><dd>{l.href ? <a href={l.href} className="underline decoration-lime/50 underline-offset-4 hover:text-lime">{l.value}</a> : l.value}</dd></div>)}
             </dl>
           )}
         </Reveal>
@@ -265,6 +330,7 @@ export function QuoteSection() {
               <div className="mt-5 flex flex-wrap gap-3">
                 <a href={tel} className="btn btn-lime"><Phone size={16} aria-hidden="true" /> Call now</a>
                 <a href={sms} className="btn btn-ghost"><MessageSquare size={16} aria-hidden="true" /> Text us</a>
+                {site.email && <a href={`mailto:${site.email}`} className="btn btn-ghost"><Mail size={16} aria-hidden="true" /> Email us</a>}
               </div>
             </div>
           </div>
