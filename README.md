@@ -29,7 +29,9 @@ To use a different film, re-run the script, set `film.frames` in `src/data/film.
 
 `src/config/site.ts` holds the business facts. Anything empty is hidden, nothing is invented:
 
-- `email`, `area`, `hours`: show in the footer and quote section once filled in.
+- `area` is West Yorkshire. `email` and `hours` show in the footer and quote section once filled in.
+- `towns`: the towns he covers (for example Leeds, Bradford). Shown on the homepage once filled in. Leave empty until he confirms them.
+- `services`: what he does besides wet belts, as `{ title, text }` entries. A "What we do" section appears on the homepage once filled in. Leave empty until he confirms them.
 - `formEndpoint`: a form service URL (for example Formspree). While empty, the quote section shows Call and Text buttons instead of a form.
 - `reviews`: real customer reviews, word for word, with permission.
 

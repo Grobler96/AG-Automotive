@@ -8,6 +8,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <img src={asset('logo.jpg')} alt={`${site.name}, ${site.strap}`} className="w-56 rounded-md" loading="lazy" />
+          {site.area && <p className="mt-4 max-w-xs text-paper/65">Mobile mechanic covering {site.area}. Wet belt changes are our speciality.</p>}
         </div>
         <div>
           <h2 className="mono">Explore</h2>
