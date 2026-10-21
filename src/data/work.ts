@@ -1,6 +1,6 @@
 /*
- * Photos from the client's real jobs (public/work). Only engine and parts photos are used: no number plates, no customers'
- * homes or other vehicles, and the files carry no location data. Captions describe only what the photo shows.
+ * Photos from the client's real jobs (public/work). The engine photos show no plates; the van photos have customers'
+ * number plates blurred and show no homes. The files carry no location data. Captions describe only what the photo shows.
  * Check with the client that each one is from one of his jobs before launch.
  */
 export type WorkPhoto = { src: string; alt: string; caption: string };
@@ -19,4 +19,16 @@ export const workPhotos: WorkPhoto[] = [
 export const workIntro = {
   title: 'From real jobs',
   text: 'Photos from jobs we have done: the belt in place, what comes out, and the new belt going on.',
+};
+
+/** The client's van on jobs. Customers' number plates are blurred and no homes or other premises are shown. */
+export const vanPhotos: WorkPhoto[] = [
+  { src: 'work/van-open-doors.webp', alt: 'The AG Automotive van with its rear doors open, hi-vis jacket inside, parked beside a white van with its bonnet up and a trolley jack in front', caption: 'Roadside, bonnet up, tools to hand.' },
+  { src: 'work/van-jaguar-compressor.webp', alt: 'The AG Automotive van with its side door open showing shelves of tools, next to a black car with its bonnet up and an air compressor on the ground', caption: 'The van open on a job, with the compressor out.' },
+  { src: 'work/van-and-transit-custom.webp', alt: 'The AG Automotive van parked beside a grey Transit Custom with its bonnet up', caption: 'Working on a van where it is parked.' },
+];
+
+export const vanIntro = {
+  title: 'We come to you',
+  text: 'The van is set up as a workshop on wheels. These are real jobs, at the customer\u2019s home or workplace, anywhere in West Yorkshire.',
 };

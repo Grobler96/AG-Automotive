@@ -37,7 +37,7 @@ To use a different film, re-run the script, set `film.frames` in `src/data/film.
 
 ## Job photos
 
-`public/work` holds photos from the client's real jobs (list and captions in `src/data/work.ts`), shown in a "From real jobs" gallery on the homepage, the wet belt page and the Ford Transit page. Only engine and parts photos are used: the photos that showed number plates, a customer's home or another company's van were left out, and the files carry no location data. Captions describe only what the photo shows. To add more, follow the same rule: no plates, no identifiable homes or people, and strip the metadata.
+`public/work` holds photos from the client's real jobs (list and captions in `src/data/work.ts`), shown in a "From real jobs" gallery on the homepage, the wet belt page and the Ford Transit page. The van photos ("We come to you") have customers' number plates blurred; photos showing homes, street names or another company's vehicles were left out. The files carry no location data. Captions describe only what the photo shows. To add more, follow the same rule: no plates, no identifiable homes or people, and strip the metadata.
 
 ## Claims deliberately left off the site
 
