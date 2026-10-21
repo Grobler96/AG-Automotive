@@ -8,30 +8,32 @@ import { site } from '@/config/site';
 const area = site.area;
 
 export const intro = {
-  title: `Your mobile mechanic in ${area}`,
-  paras: [
-    `AG Automotive is a mobile mechanic covering ${area}, for cars, vans and motorhomes. Instead of taking your vehicle to a garage, we come to you.`,
-    'Wet belt changes are our speciality, and they are what the film above is all about.',
-    'We also carry out servicing and repairs, from brakes and clutches to batteries and diagnostics. See what we do below, or call or text and ask.',
-    `We cover all of ${area}, including Leeds, Bradford, Wakefield, ${site.towns.slice(0, -1).join(', ')} and ${site.towns[site.towns.length - 1]}, and the towns around them.`,
+  title: 'The mechanic that comes to you',
+  lead: `No garage run. AG Automotive brings the workshop to your drive, your work or wherever the vehicle is parked, across all of ${area}.`,
+  cards: [
+    { kicker: '01', title: 'We come to you', text: 'At home, at work or wherever it is parked. Your vehicle stays put and the van pulls up beside it.' },
+    { kicker: '02', title: 'Wet belt specialist', text: 'It is the job we are known for. Watch the film above, then read the full story on the wet belt page.' },
+    { kicker: '03', title: 'Cars, vans, motorhomes', text: 'Whatever you drive, call or text with the make, model and year and tell us what it needs.' },
+    { kicker: '04', title: `All of ${area}`, text: 'Leeds, Bradford, Wakefield, Huddersfield, Halifax and every town around them.' },
   ],
+  coverage: `We cover all of ${area}, including Leeds, Bradford, Wakefield, ${site.towns.slice(0, -1).join(', ')} and ${site.towns[site.towns.length - 1]}, and the towns around them. We also do servicing and repairs, from brakes and clutches to batteries and diagnostics.`,
 };
 
 export const speciality = {
-  title: 'Our speciality: wet belts',
-  text: 'A wet belt runs inside the engine, bathed in oil, and it is a job that needs doing properly. It is the work we are best known for, and we do it at your location.',
+  title: 'Wet belts are our thing',
+  text: 'A wet belt runs inside the engine, bathed in oil, and the job needs doing properly. It is the work we are best known for, and we do it at your location.',
 };
 
 export const services = {
   title: 'What we do',
-  intro: 'Wet belt changes are our speciality. Here is what else we do, on cars, vans and motorhomes.',
+  intro: 'Wet belts are the speciality, but the van carries the tools for plenty more. Here is what we do, on cars, vans and motorhomes.',
   more: 'And much more. If it is not on the list, call or text and ask.',
 };
 
 export const steps = [
-  { n: '01', title: 'Get in touch', text: 'Call or text with the make, model and year of the car and what you need doing.' },
-  { n: '02', title: 'We come to you', text: `AG Automotive is a mobile mechanic, so the work is done where the car is: at home, at work or anywhere convenient in ${area}.` },
-  { n: '03', title: 'Job done', text: 'The work is carried out at your location, so there is no trip to a garage.' },
+  { n: '01', title: 'Call or text', text: 'Tell us the make, model and year and what the vehicle needs.' },
+  { n: '02', title: 'We turn up', text: `The van comes to wherever the vehicle is: at home, at work or anywhere convenient in ${area}.` },
+  { n: '03', title: 'Job done', text: 'The work is carried out right there, so there is no trip to a garage.' },
 ];
 
 export const faqs = [
