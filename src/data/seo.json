@@ -1,0 +1,19 @@
+{
+  "/": {
+    "title": "AG Automotive | Mobile mechanic, wet belt changes",
+    "description": "AG Automotive is a mobile mechanic specialising in wet belt changes. We come to you. Call 07375 419123 for a quote."
+  },
+  "/wet-belt-changes": {
+    "title": "Wet belt changes by a mobile mechanic | AG Automotive",
+    "description": "What a wet belt is, the warning signs to watch for and how AG Automotive changes wet belts where you are. Call 07375 419123."
+  },
+  "/contact": {
+    "title": "Contact AG Automotive | Get a wet belt quote",
+    "description": "Call or text AG Automotive, the mobile mechanic, on 07375 419123 for a wet belt change quote."
+  },
+  "404": {
+    "title": "Page not found | AG Automotive",
+    "description": "That page could not be found.",
+    "noindex": true
+  }
+}
