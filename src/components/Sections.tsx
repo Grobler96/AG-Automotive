@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { ArrowRight, Check, Mail, MessageSquare, Phone } from 'lucide-react';
 import Reveal from './Reveal';
+import Card3D from './Card3D';
 import { Link } from 'react-router-dom';
 import { areas, type Area } from '@/data/areas';
 import { vanIntro, vanPhotos, workIntro, workPhotos } from '@/data/work';
@@ -79,15 +80,25 @@ export function Signs() {
 export function Intro() {
   return (
     <Wrap>
-      <div className="grid gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16">
-        <Reveal>
-          <p className="mono">// {site.name}</p>
-          <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">{intro.title}</h2>
-        </Reveal>
-        <Reveal delay={0.1} className="space-y-5 text-lg text-paper/80">
-          {intro.paras.map((p) => <p key={p}>{p}</p>)}
-        </Reveal>
-      </div>
+      <Reveal>
+        <p className="mono">// {site.name}</p>
+        <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-6xl leading-[0.95] max-w-3xl">{intro.title}</h2>
+        <p className="mt-5 max-w-2xl text-lg sm:text-xl text-paper/80">{intro.lead}</p>
+      </Reveal>
+      <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {intro.cards.map((c, i) => (
+          <li key={c.title} className="list-none">
+            <Reveal delay={i * 0.07} className="h-full">
+              <Card3D index={i}>
+                <p className="font-display font-bold text-4xl text-lime/90">{c.kicker}</p>
+                <h3 className="mt-3 text-xl font-bold uppercase leading-tight">{c.title}</h3>
+                <p className="mt-2 text-paper/75">{c.text}</p>
+              </Card3D>
+            </Reveal>
+          </li>
+        ))}
+      </ul>
+      <Reveal><p className="mt-10 max-w-3xl text-paper/65">{intro.coverage}</p></Reveal>
     </Wrap>
   );
 }
@@ -183,11 +194,13 @@ export function Services() {
       </Reveal>
       <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {site.services.map((s, i) => (
-          <Reveal key={s.title} delay={i * 0.05}>
-            <li className={`h-full rounded-lg border bg-panel p-5 list-none ${s.highlight ? 'border-lime shadow-glow' : 'border-line'}`}>
-              {s.highlight && <p className="mono mb-2">Our speciality</p>}
-              <h3 className="text-xl font-bold uppercase">{s.title}</h3>
-              <p className="mt-2 text-paper/75">{s.text}</p>
+          <Reveal key={s.title} delay={i * 0.05} className="h-full">
+            <li className="list-none h-full">
+              <Card3D index={i} className={s.highlight ? '!border-lime shadow-glow' : ''}>
+                {s.highlight && <p className="mono mb-2">Our speciality</p>}
+                <h3 className="text-xl font-bold uppercase">{s.title}</h3>
+                <p className="mt-2 text-paper/75">{s.text}</p>
+              </Card3D>
             </li>
           </Reveal>
         ))}
@@ -247,15 +260,17 @@ export function HowItWorks({ items = steps }: { items?: Step[] }) {
     <Wrap>
       <Reveal>
         <p className="mono">// How it works</p>
-        <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">Three steps.</h2>
+        <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">Three steps. That is it.</h2>
       </Reveal>
       <ol className="mt-10 grid gap-5 md:grid-cols-3">
         {items.map((s, i) => (
-          <Reveal key={s.n} delay={i * 0.08}>
-            <li className="h-full rounded-lg border border-line bg-panel p-6 list-none">
-              <p className="font-display font-bold text-5xl text-lime/90">{s.n}</p>
-              <h3 className="mt-4 text-2xl font-bold uppercase">{s.title}</h3>
-              <p className="mt-2 text-paper/75">{s.text}</p>
+          <Reveal key={s.n} delay={i * 0.08} className="h-full">
+            <li className="list-none h-full">
+              <Card3D index={i} className="p-7">
+                <p className="font-display font-bold text-5xl text-lime/90">{s.n}</p>
+                <h3 className="mt-4 text-2xl font-bold uppercase">{s.title}</h3>
+                <p className="mt-2 text-paper/75">{s.text}</p>
+              </Card3D>
             </li>
           </Reveal>
         ))}
