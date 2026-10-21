@@ -85,6 +85,19 @@ export function Speciality() {
   );
 }
 
+/** The lime strip from his flyer: what he works on, and where. */
+export function VehicleBand() {
+  return (
+    <div className="bg-lime text-ink">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex flex-wrap items-center justify-center gap-x-8 gap-y-1 font-display font-bold uppercase tracking-[0.25em] text-xs sm:text-sm">
+        <span>{site.vehicles.join(' · ')}</span>
+        <span className="hidden sm:inline opacity-50">/</span>
+        <span>Covering all {site.area}</span>
+      </div>
+    </div>
+  );
+}
+
 export function Services() {
   if (site.services.length === 0) return null;
   return (
@@ -97,13 +110,15 @@ export function Services() {
       <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {site.services.map((s, i) => (
           <Reveal key={s.title} delay={i * 0.05}>
-            <li className="h-full rounded-lg border border-line bg-panel p-5 list-none">
+            <li className={`h-full rounded-lg border bg-panel p-5 list-none ${s.highlight ? 'border-lime shadow-glow' : 'border-line'}`}>
+              {s.highlight && <p className="mono mb-2">Our speciality</p>}
               <h3 className="text-xl font-bold uppercase">{s.title}</h3>
               <p className="mt-2 text-paper/75">{s.text}</p>
             </li>
           </Reveal>
         ))}
       </ul>
+      <Reveal><p className="mt-8 text-lg text-paper/80">{services.more}</p></Reveal>
     </Wrap>
   );
 }

@@ -8,7 +8,7 @@ export function businessSchema(siteUrl: string) {
     '@type': 'AutoRepair',
     '@id': `${siteUrl}/#business`,
     name: site.name,
-    description: `Mobile mechanic covering all of ${site.area} for servicing, repairs and wet belt changes.`,
+    description: `Mobile mechanic for ${site.vehicles.join(', ').replace(/, ([^,]*)$/, ' and $1')} covering all of ${site.area}: servicing, repairs and wet belt changes.`,
     url: `${siteUrl}/`,
     image: `${siteUrl}/og-image.jpg`,
     logo: `${siteUrl}/logo.jpg`,
@@ -20,7 +20,7 @@ export function businessSchema(siteUrl: string) {
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Mobile mechanic services',
-      itemListElement: [{ title: 'Wet belt changes', text: 'Our speciality.' }, ...site.services].map((s) => ({
+      itemListElement: site.services.map((s) => ({
         '@type': 'Offer',
         itemOffered: { '@type': 'Service', name: s.title, description: s.text },
       })),
