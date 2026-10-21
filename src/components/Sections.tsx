@@ -1,7 +1,8 @@
 import { useState, type FormEvent } from 'react';
-import { MessageSquare, Phone } from 'lucide-react';
+import { ArrowRight, MessageSquare, Phone } from 'lucide-react';
 import Reveal from './Reveal';
-import { contactLines, explainer, faqs, signs, steps } from '@/data/content';
+import { Link } from 'react-router-dom';
+import { contactLines, explainer, faqs, intro, services, signs, speciality, steps } from '@/data/content';
 import { site, sms, tel } from '@/config/site';
 
 const Wrap = ({ id, children, tone = 'ink' }: { id?: string; children: React.ReactNode; tone?: 'ink' | 'carbon' }) => (
@@ -48,7 +49,67 @@ export function Signs() {
   );
 }
 
-export function HowItWorks() {
+export function Intro() {
+  return (
+    <Wrap>
+      <div className="grid gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16">
+        <Reveal>
+          <p className="mono">// {site.name}</p>
+          <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">{intro.title}</h2>
+        </Reveal>
+        <Reveal delay={0.1} className="space-y-5 text-lg text-paper/80">
+          {intro.paras.map((p) => <p key={p}>{p}</p>)}
+          {site.towns.length > 0 && <p className="text-paper/70">Covering {site.towns.join(', ')} and across {site.area}.</p>}
+        </Reveal>
+      </div>
+    </Wrap>
+  );
+}
+
+export function Speciality() {
+  return (
+    <Wrap tone="carbon">
+      <Reveal>
+        <div className="grid gap-8 md:grid-cols-[1.3fr_1fr] items-center rounded-xl border border-lime/40 bg-panel p-6 sm:p-10 shadow-glow">
+          <div>
+            <p className="mono">// Specialist work</p>
+            <h2 className="mt-3 font-display font-bold uppercase text-3xl sm:text-4xl leading-[0.98]">{speciality.title}</h2>
+            <p className="mt-4 text-lg text-paper/80 max-w-xl">{speciality.text}</p>
+          </div>
+          <div className="md:justify-self-end">
+            <Link to="/wet-belt-changes" className="btn btn-lime">Everything about wet belts <ArrowRight size={16} aria-hidden="true" /></Link>
+          </div>
+        </div>
+      </Reveal>
+    </Wrap>
+  );
+}
+
+export function Services() {
+  if (site.services.length === 0) return null;
+  return (
+    <Wrap>
+      <Reveal>
+        <p className="mono">// Services</p>
+        <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">{services.title}</h2>
+        <p className="mt-4 max-w-2xl text-paper/70">{services.intro}</p>
+      </Reveal>
+      <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {site.services.map((s, i) => (
+          <Reveal key={s.title} delay={i * 0.05}>
+            <li className="h-full rounded-lg border border-line bg-panel p-5 list-none">
+              <h3 className="text-xl font-bold uppercase">{s.title}</h3>
+              <p className="mt-2 text-paper/75">{s.text}</p>
+            </li>
+          </Reveal>
+        ))}
+      </ul>
+    </Wrap>
+  );
+}
+
+type Step = { n: string; title: string; text: string };
+export function HowItWorks({ items = steps }: { items?: Step[] }) {
   return (
     <Wrap>
       <Reveal>
@@ -56,7 +117,7 @@ export function HowItWorks() {
         <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">Three steps.</h2>
       </Reveal>
       <ol className="mt-10 grid gap-5 md:grid-cols-3">
-        {steps.map((s, i) => (
+        {items.map((s, i) => (
           <Reveal key={s.n} delay={i * 0.08}>
             <li className="h-full rounded-lg border border-line bg-panel p-6 list-none">
               <p className="font-display font-bold text-5xl text-lime/90">{s.n}</p>
@@ -89,17 +150,18 @@ export function Reviews() {
   );
 }
 
-export function Faq() {
-  const ld = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+type Qa = { q: string; a: string };
+export function Faq({ items = faqs, title = 'Questions' }: { items?: Qa[]; title?: string }) {
+  const ld = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: items.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
   return (
     <Wrap tone="carbon">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <Reveal>
         <p className="mono">// Questions</p>
-        <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">Wet belt FAQs</h2>
+        <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">{title}</h2>
       </Reveal>
       <div className="mt-10 max-w-3xl divide-y divide-line border-y border-line">
-        {faqs.map((f) => (
+        {items.map((f) => (
           <details key={f.q} className="group py-5">
             <summary className="cursor-pointer list-none flex items-center justify-between gap-4 font-display font-semibold text-xl">
               {f.q}
@@ -129,7 +191,7 @@ function QuoteForm() {
       <label className="grid gap-1.5"><span className="mono">Your name</span><input name="name" required autoComplete="name" className="field" /></label>
       <label className="grid gap-1.5"><span className="mono">Phone number</span><input name="phone" type="tel" required autoComplete="tel" className="field" /></label>
       <label className="grid gap-1.5"><span className="mono">Car make, model and year</span><input name="car" required className="field" /></label>
-      <label className="grid gap-1.5"><span className="mono">What is happening?</span><textarea name="message" rows={4} className="field" /></label>
+      <label className="grid gap-1.5"><span className="mono">What do you need doing, and where is the car?</span><textarea name="message" rows={4} className="field" /></label>
       <button type="submit" disabled={state === 'sending'} className="btn btn-lime justify-self-start disabled:opacity-60">{state === 'sending' ? 'Sending' : 'Send my details'}</button>
       {state === 'error' && <p role="alert" className="text-butter">That did not send. Please call or text us instead.</p>}
     </form>
@@ -142,8 +204,8 @@ export function QuoteSection() {
       <div className="grid gap-10 md:grid-cols-[1fr_1fr] md:gap-16">
         <Reveal>
           <p className="mono">// Get a quote</p>
-          <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">Tell us the car.<br /><span className="text-lime">We will do the rest.</span></h2>
-          <p className="mt-5 text-paper/75 max-w-md">Send the make, model and year and what is happening. We will come back to you with a quote.</p>
+          <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">Tell us the car.<br /><span className="text-lime">We will come to you.</span></h2>
+          <p className="mt-5 text-paper/75 max-w-md">Send the make, model and year, what you need doing and where in {site.area} the car is. We will come back to you with a quote.</p>
           {contactLines.length > 0 && (
             <dl className="mt-6 space-y-1 text-paper/75">
               {contactLines.map((l) => <div key={l.label} className="flex gap-3"><dt className="mono !text-paper/50 w-14 pt-1">{l.label}</dt><dd>{l.value}</dd></div>)}

@@ -9,8 +9,12 @@ export const site = {
   phoneDisplay: '07375 419123',
   /** Fill in once confirmed. Shown in the footer and contact page. */
   email: '' as string,
-  /** Where the business works, e.g. "Leeds and Bradford". Leave empty until confirmed. */
-  area: '' as string,
+  /** Where the business works. */
+  area: 'West Yorkshire' as string,
+  /** Towns and cities he covers, e.g. ['Leeds', 'Bradford']. Leave empty until he confirms; the section hides when empty. */
+  towns: [] as string[],
+  /** What he does besides wet belts: [{ title: 'Servicing', text: 'One line.' }]. Leave empty until he confirms; the section hides when empty. */
+  services: [] as { title: string; text: string }[],
   /** Opening hours, e.g. "Monday to Saturday, 8am to 6pm". Leave empty until confirmed. */
   hours: '' as string,
   /**

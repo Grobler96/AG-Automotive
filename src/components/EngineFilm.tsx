@@ -27,7 +27,7 @@ function Actions({ className = '' }: { className?: string }) {
 function HeroText() {
   return (
     <>
-      <p className="mono">{site.name} · {site.strap}</p>
+      <p className="mono">{site.name} · {site.strap}{site.area ? ` · ${site.area}` : ''}</p>
       <h1 className="mt-3 font-display font-bold uppercase leading-[0.95] text-[clamp(2.1rem,8.5vw,5rem)]">
         Wet belt changes.<br /><span className="text-lime">We come to you.</span>
       </h1>
