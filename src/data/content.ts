@@ -12,7 +12,8 @@ export const intro = {
   paras: [
     `AG Automotive is a mobile mechanic covering ${area}. Instead of taking your car to a garage, we come to you.`,
     'Wet belt changes are our speciality, and they are what the film above is all about.',
-    'For anything else your car needs, call or text and ask.',
+    'We also carry out the full range of mechanical work, from servicing to repairs. See what we do below, or call or text and ask.',
+    `We cover all of ${area}, including Leeds, Bradford, Wakefield, ${site.towns.slice(0, -1).join(', ')} and ${site.towns[site.towns.length - 1]}, and the towns around them.`,
   ],
 };
 
@@ -34,8 +35,8 @@ export const steps = [
 
 export const faqs = [
   { q: 'What is a mobile mechanic?', a: 'A mobile mechanic comes to you, at home or wherever the car is, instead of you taking the car to a garage.' },
-  { q: 'Which areas do you cover?', a: `We work across ${area}. Call or text with your postcode and we will confirm we can get to you.` },
-  { q: 'What do you specialise in?', a: 'Wet belt changes. For other work on your car, get in touch and ask what we can do.' },
+  { q: 'Which areas do you cover?', a: `We cover all of ${area}: Leeds, Bradford, Wakefield, Huddersfield, Halifax and the towns around them. Call or text with your postcode and we will confirm.` },
+  { q: 'What do you specialise in?', a: 'Wet belt changes. We also carry out the full range of mechanical work, from servicing to repairs, so call or text and ask about yours.' },
   { q: 'What is a wet belt?', a: 'A wet belt is a timing belt that runs inside the engine in oil, rather than in a dry cover like a traditional timing belt. See our wet belt page for more.' },
   { q: 'How much will it cost?', a: 'It depends on the car and the job, so we quote for each one. Call or text us with your make, model and year.' },
 ];

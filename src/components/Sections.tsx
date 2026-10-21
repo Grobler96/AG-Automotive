@@ -60,7 +60,6 @@ export function Intro() {
         </Reveal>
         <Reveal delay={0.1} className="space-y-5 text-lg text-paper/80">
           {intro.paras.map((p) => <p key={p}>{p}</p>)}
-          {site.towns.length > 0 && <p className="text-paper/70">Covering {site.towns.join(', ')} and across {site.area}.</p>}
         </Reveal>
       </div>
     </Wrap>
