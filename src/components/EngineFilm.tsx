@@ -1,19 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { MessageSquare, Phone } from 'lucide-react';
-import { callouts, chapters, film, frameUrl } from '@/data/film';
+import { callouts, chapters, film, frameUrl, heroEnd, outroStart, steps } from '@/data/film';
 import { site, sms, tel } from '@/config/site';
 import { asset } from '@/lib/asset';
 
-const STEP_NAMES = ['The engine', 'Covers off', 'Belt revealed', 'Old belt out', 'New belt on', 'Back together'];
-const STEP_STARTS = [0, 0.19, 0.36, 0.52, 0.68, 0.85]; // where each film segment begins
-const HERO_END = 0.17;
-const OUTRO_START = 0.96;
-
-const stepFor = (v: number) => STEP_STARTS.reduce((n, s, i) => (v >= s ? i : n), 0);
+const stepFor = (v: number) => steps.reduce((n, s, i) => (v >= s.start ? i : n), 0);
 const phaseFor = (v: number) => {
-  if (v < HERO_END) return 'hero';
-  if (v >= OUTRO_START) return 'outro';
+  if (v < heroEnd) return 'hero';
+  if (v >= outroStart) return 'outro';
   const i = chapters.findIndex((c) => v >= c.at[0] && v <= c.at[1]);
   return i >= 0 ? `c${i}` : 'none';
 };
@@ -179,12 +174,15 @@ function PinnedFilm() {
 
   const chapterIndex = phase.startsWith('c') ? Number(phase.slice(1)) : -1;
   const chapter = chapterIndex >= 0 ? chapters[chapterIndex] : null;
-  const callout = co >= 0 ? callouts[co] : null;
+  const callout = wide && co >= 0 ? callouts[co] : null;
 
   return (
     <section ref={section} className="relative" style={{ height: `${film.length * 100}vh` }} aria-label="How a wet belt change works: scroll to take the engine apart">
       <div className="sticky top-16 h-[calc(100vh-8.5rem)] h-[calc(100svh-8.5rem)] md:h-[calc(100vh-4rem)] md:h-[calc(100svh-4rem)] overflow-hidden bg-ink">
-        <canvas ref={canvas} role="img" aria-label="An engine coming apart, the wet belt being replaced and the engine going back together" className="absolute inset-0 w-full h-full" />
+        {/* landscape screens: full bleed. Portrait screens: a square window near the top (words go below), faded into the black */}
+        <div className={wide ? 'absolute inset-0' : 'absolute inset-x-0 top-9 aspect-square [mask-image:linear-gradient(to_bottom,transparent,#000_12%,#000_88%,transparent)]'}>
+          <canvas ref={canvas} role="img" aria-label="An engine coming apart, the old wet belt coming off and a new one going on" className="absolute inset-0 w-full h-full" />
+        </div>
         <div aria-hidden="true" className="film-grain absolute inset-0 pointer-events-none" />
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none bg-[radial-gradient(120%_90%_at_50%_45%,transparent_45%,rgba(5,5,5,0.85))]" />
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[55%] pointer-events-none bg-gradient-to-t from-ink via-ink/60 to-transparent" />
@@ -196,7 +194,7 @@ function PinnedFilm() {
           ))}
           <span className="scanline absolute inset-x-0 top-0 h-px bg-lime/60 shadow-[0_0_14px_2px_rgba(126,211,33,0.5)]" />
           <div className="absolute top-2 left-3 sm:left-4 mono text-lime/90 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-lime animate-pulse" /> Step {String(step + 1).padStart(2, '0')} / 06 · {STEP_NAMES[step]}
+            <span className="w-1.5 h-1.5 rounded-full bg-lime animate-pulse" /> Step {String(step + 1).padStart(2, '0')} / {String(steps.length).padStart(2, '0')} · {steps[step].name}
           </div>
           <motion.div className="absolute top-2 right-3 sm:right-4 mono text-lime/70">{pct}</motion.div>
           <div className="hidden md:block absolute right-4 top-1/2 -translate-y-1/2 h-40 w-px bg-line">
@@ -208,7 +206,7 @@ function PinnedFilm() {
         {/* callout lines on the film (desktop) */}
         <AnimatePresence>
           {callout && (
-            <motion.div key={co} aria-hidden="true" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="hidden md:block absolute inset-0 pointer-events-none">
+            <motion.div key={co} aria-hidden="true" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="absolute inset-0 pointer-events-none">
               <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <line x1={callout.x} y1={callout.y} x2={callout.x + callout.dx} y2={callout.y + callout.dy} stroke="#7ED321" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
               </svg>

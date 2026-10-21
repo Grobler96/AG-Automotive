@@ -7,7 +7,7 @@ Vite, React, TypeScript, Tailwind and framer-motion. Deploys to GitHub Pages wit
 
 The homepage opens with a pinned scroll film: one continuous shot of an engine coming apart in sections, the wet belt coming off, a new belt going on and the engine going back together. A code driven HUD (step counter, progress rail, scan line, callouts) sits on top.
 
-- Desktop uses landscape frames, phones use portrait frames. Frames load coarse first, so the film is scrubbable almost straight away.
+- Landscape screens get full bleed frames. Portrait screens get a square window at the top with the words below. Frames load coarse first and blend between neighbours.
 - With `prefers-reduced-motion` the film is replaced by the same story as plain content.
 - Phones get a Call and Text bar at the bottom at all times.
 
@@ -19,14 +19,11 @@ npm run dev
 npm run lint && npm run typecheck && npm run build
 ```
 
-## Swap in the real film
+## The film
 
-The site currently runs on a drawn placeholder (`scripts/make-placeholder-film.py`) so the scroll mechanics can be tested.
+`public/film/engine` holds the scroll frames, made from the finished Veo film (a base clip plus four extensions, 36 seconds, one continuous shot) with `bash scripts/make-film.sh film.mp4` (needs ffmpeg). It writes 7 frames a second: `d` (1280x720) for landscape screens and `m` (960x720) for portrait screens, where it sits in a square window with the words below. A visitor downloads about 10MB, coarse frames first, so it is scrubbable almost at once.
 
-1. Make the engine film in Flow (one continuous shot, 16:9, engine centred so phones can crop it).
-2. `bash scripts/make-film.sh path/to/film.mp4` (needs ffmpeg). It writes `public/film/engine/d` and `/m`.
-3. Set `film.frames` in `src/data/film.ts` to the number it prints.
-4. Re-time `chapters` and re-aim `callouts` in `src/data/film.ts` against the real footage. The timings assume a base clip plus five extensions of about equal length.
+To use a different film, re-run the script, set `film.frames` in `src/data/film.ts` to the number it prints, then re-time `steps`, `chapters` and `callouts` in the same file against the new footage. Landscape screens show callout labels pointing at parts of the engine; their positions are percentages of the frame.
 
 ## Fill in before launch
 
