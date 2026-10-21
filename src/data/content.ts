@@ -79,5 +79,6 @@ export const wetBeltFaqs = [
 
 export const contactLines = [
   site.area && { label: 'Area', value: site.area },
-  site.hours && { label: 'Hours', value: site.hours },
-].filter(Boolean) as { label: string; value: string }[];
+  site.hours.length > 0 && { label: 'Hours', value: site.hours.join('. ') },
+  site.email && { label: 'Email', value: site.email, href: `mailto:${site.email}` },
+].filter(Boolean) as { label: string; value: string; href?: string }[];

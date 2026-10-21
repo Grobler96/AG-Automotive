@@ -9,8 +9,7 @@ export const site = {
   strap: 'The Mobile Mechanic',
   phone: '07375419123',
   phoneDisplay: '07375 419123',
-  /** Fill in once confirmed. Shown in the footer and contact page. */
-  email: '' as string,
+  email: 'anygray91@gmail.com' as string,
   /** Where the business works. */
   area: 'West Yorkshire' as string,
   /** Towns he covers beyond Leeds, Bradford and Wakefield (which have their own pages). He covers all of West Yorkshire. */
@@ -34,8 +33,13 @@ export const site = {
     { title: 'Exhausts', text: 'Exhaust repairs.' },
     { title: 'MOT repairs', text: 'Repairs to get your car through its MOT.' },
   ] as { title: string; text: string }[],
-  /** Opening hours, e.g. "Monday to Saturday, 8am to 6pm". Leave empty until confirmed. */
-  hours: '' as string,
+  /** Opening hours as shown on the site, one line each. Keep in step with openingHours below. */
+  hours: ['Monday to Friday, 8am to 6pm', 'Saturday, 8am to 12pm'] as string[],
+  /** The same hours for Google (structured data). */
+  openingHours: [
+    { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '08:00', closes: '18:00' },
+    { days: ['Saturday'], opens: '08:00', closes: '12:00' },
+  ] as { days: string[]; opens: string; closes: string }[],
   /**
    * Quote form endpoint (e.g. a Formspree form URL). While this is empty the quote section shows
    * Call and Text buttons instead of a form, so nothing on the page pretends to work when it doesn't.

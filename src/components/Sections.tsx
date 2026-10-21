@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { ArrowRight, MessageSquare, Phone } from 'lucide-react';
+import { ArrowRight, Mail, MessageSquare, Phone } from 'lucide-react';
 import Reveal from './Reveal';
 import { Link } from 'react-router-dom';
 import { areas, type Area } from '@/data/areas';
@@ -252,7 +252,7 @@ export function QuoteSection() {
           <p className="mt-5 text-paper/75 max-w-md">Send the make, model and year, what you need doing and where in {site.area} the car is. We will come back to you with a quote.</p>
           {contactLines.length > 0 && (
             <dl className="mt-6 space-y-1 text-paper/75">
-              {contactLines.map((l) => <div key={l.label} className="flex gap-3"><dt className="mono !text-paper/50 w-14 pt-1">{l.label}</dt><dd>{l.value}</dd></div>)}
+              {contactLines.map((l) => <div key={l.label} className="flex gap-3"><dt className="mono !text-paper/50 w-14 pt-1">{l.label}</dt><dd>{l.href ? <a href={l.href} className="underline decoration-lime/50 underline-offset-4 hover:text-lime">{l.value}</a> : l.value}</dd></div>)}
             </dl>
           )}
         </Reveal>
@@ -265,6 +265,7 @@ export function QuoteSection() {
               <div className="mt-5 flex flex-wrap gap-3">
                 <a href={tel} className="btn btn-lime"><Phone size={16} aria-hidden="true" /> Call now</a>
                 <a href={sms} className="btn btn-ghost"><MessageSquare size={16} aria-hidden="true" /> Text us</a>
+                {site.email && <a href={`mailto:${site.email}`} className="btn btn-ghost"><Mail size={16} aria-hidden="true" /> Email us</a>}
               </div>
             </div>
           </div>

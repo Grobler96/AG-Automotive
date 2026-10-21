@@ -30,7 +30,7 @@ To use a different film, re-run the script, set `film.frames` in `src/data/film.
 
 `src/config/site.ts` holds the business facts. Anything empty is hidden, nothing is invented:
 
-- `area` is West Yorkshire. `email` and `hours` show in the footer and quote section once filled in.
+- `area` is West Yorkshire; `email` and `hours` (Monday to Friday 8am to 6pm, Saturday 8am to 12pm) are filled in and show in the footer and quote section. `openingHours` is the same data for Google, so change both together. Google's business data (`src/lib/schema.ts`) is built from this file and prerendered into every page, so it always matches the page.
 - `towns` (extra towns across West Yorkshire), `districts` (areas within Leeds, Wakefield and Bradford, shown on each town page) and `services` (the "What we do" section) are filled in from what the client confirmed: all of West Yorkshire and all mechanic services. The service list is the standard set of mechanical work, so he should confirm each line.
 - `formEndpoint`: a form service URL (for example Formspree). While empty, the quote section shows Call and Text buttons instead of a form.
 - `reviews`: real customer reviews, word for word, with permission.
