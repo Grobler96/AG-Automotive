@@ -1,5 +1,6 @@
 import { AreasSection, Explainer, Faq, HowItWorks, QuoteSection, Reviews, Signs } from '@/components/Sections';
 import { wetBeltFaqs, wetBeltSteps } from '@/data/content';
+import HeroLogo from '@/components/HeroLogo';
 import { useSEO } from '@/lib/useSEO';
 import { site, sms, tel } from '@/config/site';
 import { MessageSquare, Phone } from 'lucide-react';
@@ -10,6 +11,7 @@ export default function WetBelt() {
     <>
       <section className="relative overflow-hidden bg-ink">
         <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(70%_80%_at_80%_20%,rgba(126,211,33,0.16),transparent)]" />
+        <HeroLogo />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 py-20 sm:py-28">
           <p className="mono">{site.name} · {site.strap}</p>
           <h1 className="mt-3 max-w-3xl font-display font-bold uppercase text-5xl sm:text-6xl leading-[0.95]">Wet belt changes in <span className="text-lime">{site.area}</span></h1>
