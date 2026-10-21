@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { ArrowRight, MessageSquare, Phone } from 'lucide-react';
 import Reveal from './Reveal';
 import { Link } from 'react-router-dom';
+import { areas, type Area } from '@/data/areas';
 import { contactLines, explainer, faqs, intro, services, signs, speciality, steps } from '@/data/content';
 import { site, sms, tel } from '@/config/site';
 
@@ -77,7 +78,7 @@ export function Speciality() {
             <p className="mt-4 text-lg text-paper/80 max-w-xl">{speciality.text}</p>
           </div>
           <div className="md:justify-self-end">
-            <Link to="/wet-belt-changes" className="btn btn-lime">Everything about wet belts <ArrowRight size={16} aria-hidden="true" /></Link>
+            <Link to="/wet-belt-changes/" className="btn btn-lime">Everything about wet belts <ArrowRight size={16} aria-hidden="true" /></Link>
           </div>
         </div>
       </Reveal>
@@ -104,6 +105,50 @@ export function Services() {
           </Reveal>
         ))}
       </ul>
+    </Wrap>
+  );
+}
+
+export function AreasSection({ exclude, title = 'Areas we cover' }: { exclude?: Area['slug']; title?: string }) {
+  const list = areas.filter((a) => a.slug !== exclude);
+  return (
+    <Wrap tone="carbon">
+      <Reveal>
+        <p className="mono">// Where we work</p>
+        <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">{title}</h2>
+        <p className="mt-4 max-w-2xl text-paper/70">AG Automotive is a mobile mechanic covering {site.area}. Pick your area to see how it works near you.</p>
+      </Reveal>
+      <ul className="mt-10 grid gap-4 sm:grid-cols-3">
+        {list.map((a, i) => (
+          <Reveal key={a.slug} delay={i * 0.06}>
+            <li className="list-none h-full">
+              <Link to={`${a.path}/`} className="group block h-full rounded-lg border border-line bg-panel p-6 hover:border-lime transition-colors">
+                <h3 className="text-2xl font-bold uppercase">Mobile mechanic in {a.name}</h3>
+                <p className="mt-2 text-paper/70">Wet belt specialist, covering {a.name}.</p>
+                <span className="mt-4 inline-flex items-center gap-2 font-display font-bold text-sm uppercase tracking-wide text-lime">See {a.name} <ArrowRight size={16} aria-hidden="true" className="transition-transform group-hover:translate-x-1" /></span>
+              </Link>
+            </li>
+          </Reveal>
+        ))}
+      </ul>
+    </Wrap>
+  );
+}
+
+export function AreaIntro({ area }: { area: Area }) {
+  const districts = site.districts[area.slug] ?? [];
+  return (
+    <Wrap>
+      <div className="grid gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16">
+        <Reveal>
+          <p className="mono">// {area.name}</p>
+          <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">A mobile mechanic for {area.name}</h2>
+        </Reveal>
+        <Reveal delay={0.1} className="space-y-5 text-lg text-paper/80">
+          {area.paras.map((p) => <p key={p}>{p}</p>)}
+          {districts.length > 0 && <p className="text-paper/70">In {area.name} we cover {districts.join(', ')} and the surrounding areas.</p>}
+        </Reveal>
+      </div>
     </Wrap>
   );
 }

@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { nav, site, tel } from '@/config/site';
+import { areas } from '@/data/areas';
 import { asset } from '@/lib/asset';
 
 export default function Footer() {
   return (
     <footer className="bg-carbon border-t border-line">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 grid gap-10 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
         <div>
           <img src={asset('logo.jpg')} alt={`${site.name}, ${site.strap}`} className="w-56 rounded-md" loading="lazy" />
           {site.area && <p className="mt-4 max-w-xs text-paper/65">Mobile mechanic covering {site.area}. Wet belt changes are our speciality.</p>}
@@ -14,6 +15,12 @@ export default function Footer() {
           <h2 className="mono">Explore</h2>
           <ul className="mt-4 space-y-2.5">
             {nav.map((n) => <li key={n.path}><Link to={n.path} className="text-paper/75 hover:text-lime">{n.label}</Link></li>)}
+          </ul>
+        </div>
+        <div>
+          <h2 className="mono">Areas</h2>
+          <ul className="mt-4 space-y-2.5">
+            {areas.map((a) => <li key={a.slug}><Link to={`${a.path}/`} className="text-paper/75 hover:text-lime">Mobile mechanic {a.name}</Link></li>)}
           </ul>
         </div>
         <div>

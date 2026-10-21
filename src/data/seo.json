@@ -1,15 +1,36 @@
 {
   "/": {
     "title": "Mobile mechanic in West Yorkshire | AG Automotive",
-    "description": "AG Automotive is a mobile mechanic covering West Yorkshire, specialising in wet belt changes. We come to you. Call 07375 419123 for a quote."
+    "description": "AG Automotive is a mobile mechanic covering West Yorkshire, specialising in wet belt changes. We come to you. Call 07375 419123 for a quote.",
+    "crumb": "Home"
   },
   "/wet-belt-changes": {
     "title": "Wet belt changes in West Yorkshire | AG Automotive",
-    "description": "Mobile wet belt changes across West Yorkshire. What a wet belt is, the warning signs to check and how AG Automotive comes to you. Call 07375 419123."
+    "description": "Mobile wet belt changes across West Yorkshire. What a wet belt is, the warning signs to check and how AG Automotive comes to you. Call 07375 419123.",
+    "crumb": "Wet belt changes"
+  },
+  "/mobile-mechanic-leeds": {
+    "title": "Mobile Mechanic Leeds | Wet Belt Changes | AG Automotive",
+    "description": "Mobile mechanic in Leeds specialising in wet belt changes. AG Automotive comes to you in Leeds. Call 07375 419123 for a quote.",
+    "city": "Leeds",
+    "crumb": "Mobile mechanic in Leeds"
+  },
+  "/mobile-mechanic-wakefield": {
+    "title": "Mobile Mechanic Wakefield | Wet Belt Changes | AG Automotive",
+    "description": "Mobile mechanic in Wakefield specialising in wet belt changes. AG Automotive comes to you in Wakefield. Call 07375 419123 for a quote.",
+    "city": "Wakefield",
+    "crumb": "Mobile mechanic in Wakefield"
+  },
+  "/mobile-mechanic-bradford": {
+    "title": "Mobile Mechanic Bradford | Wet Belt Changes | AG Automotive",
+    "description": "Mobile mechanic in Bradford specialising in wet belt changes. AG Automotive comes to you in Bradford. Call 07375 419123 for a quote.",
+    "city": "Bradford",
+    "crumb": "Mobile mechanic in Bradford"
   },
   "/contact": {
     "title": "Contact AG Automotive | Mobile mechanic, West Yorkshire",
-    "description": "Call or text AG Automotive, your mobile mechanic in West Yorkshire, on 07375 419123 for a quote."
+    "description": "Call or text AG Automotive, your mobile mechanic in West Yorkshire, on 07375 419123 for a quote.",
+    "crumb": "Contact"
   },
   "404": {
     "title": "Page not found | AG Automotive",

@@ -13,6 +13,8 @@ export const site = {
   area: 'West Yorkshire' as string,
   /** Towns and cities he covers, e.g. ['Leeds', 'Bradford']. Leave empty until he confirms; the section hides when empty. */
   towns: [] as string[],
+  /** Districts he covers within each town, keyed by area slug, e.g. { leeds: ['Headingley', 'Morley'] }. Each list shows on its town page once filled in; leave empty until he confirms. */
+  districts: { leeds: [], wakefield: [], bradford: [] } as Record<string, string[]>,
   /** What he does besides wet belts: [{ title: 'Servicing', text: 'One line.' }]. Leave empty until he confirms; the section hides when empty. */
   services: [] as { title: string; text: string }[],
   /** Opening hours, e.g. "Monday to Saturday, 8am to 6pm". Leave empty until confirmed. */
@@ -28,8 +30,8 @@ export const site = {
 };
 
 export const nav = [
-  { path: '/wet-belt-changes', label: 'Wet belt changes' },
-  { path: '/contact', label: 'Contact' },
+  { path: '/wet-belt-changes/', label: 'Wet belt changes' },
+  { path: '/contact/', label: 'Contact' },
 ];
 
 export const tel = `tel:${site.phone}`;
