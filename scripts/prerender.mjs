@@ -34,6 +34,17 @@ function jsonLd(path, meta) {
       ],
     });
   }
+  if (meta.service) {
+    blocks.push({
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: meta.service,
+      serviceType: meta.service,
+      url: pageUrl(path),
+      provider: { '@id': `${SITE_URL}/#business` },
+      areaServed: { '@type': 'AdministrativeArea', name: 'West Yorkshire' },
+    });
+  }
   if (meta.city) {
     blocks.push({
       '@context': 'https://schema.org',

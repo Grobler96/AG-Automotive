@@ -1,16 +1,40 @@
 import { useState, type FormEvent } from 'react';
-import { ArrowRight, Mail, MessageSquare, Phone } from 'lucide-react';
+import { ArrowRight, Check, Mail, MessageSquare, Phone } from 'lucide-react';
 import Reveal from './Reveal';
 import { Link } from 'react-router-dom';
 import { areas, type Area } from '@/data/areas';
 import { contactLines, explainer, faqs, intro, services, signs, speciality, steps } from '@/data/content';
 import { site, sms, tel } from '@/config/site';
 
-const Wrap = ({ id, children, tone = 'ink' }: { id?: string; children: React.ReactNode; tone?: 'ink' | 'carbon' }) => (
+export const Wrap = ({ id, children, tone = 'ink' }: { id?: string; children: React.ReactNode; tone?: 'ink' | 'carbon' }) => (
   <section id={id} className={`${tone === 'carbon' ? 'bg-carbon' : 'bg-ink'} border-t border-line scroll-mt-20`}>
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-16 sm:py-24">{children}</div>
   </section>
 );
+
+export { default as Reveal } from './Reveal';
+
+export function Includes({ title, items, note }: { title: string; items: string[]; note?: string }) {
+  return (
+    <Wrap>
+      <Reveal>
+        <p className="mono">// The job</p>
+        <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">{title}</h2>
+      </Reveal>
+      <ul className="mt-10 grid gap-4 md:grid-cols-3">
+        {items.map((t, i) => (
+          <Reveal key={t} delay={i * 0.06}>
+            <li className="h-full flex items-start gap-4 rounded-lg border border-line bg-panel p-5 list-none">
+              <Check size={22} aria-hidden="true" className="mt-0.5 shrink-0 text-lime" />
+              <span className="text-lg">{t}</span>
+            </li>
+          </Reveal>
+        ))}
+      </ul>
+      {note && <Reveal><p className="mt-8 max-w-3xl text-paper/70">{note}</p></Reveal>}
+    </Wrap>
+  );
+}
 
 export function Explainer() {
   return (

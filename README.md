@@ -35,10 +35,15 @@ To use a different film, re-run the script, set `film.frames` in `src/data/film.
 - `formEndpoint`: a form service URL (for example Formspree). While empty, the quote section shows Call and Text buttons instead of a form.
 - `reviews`: real customer reviews, word for word, with permission.
 
+## Claims deliberately left off the site
+
+The client's flyers also say "all work guaranteed", "5 star service, check our reviews", "competitive prices", "honest prices", "fast turnaround" and "a small job now saves big bills later". None are on the site: a guarantee needs its exact terms, there are no reviews to point to yet, and the rest cannot be shown to be true. Add any of them only when the client confirms it and can back it up.
+
 ## Copy to confirm with the client
 
 `src/data/content.ts` describes the process and general facts only. Check with the client before launch, especially:
 
+- The Ford Transit page (`/ford-transit-wet-belt-replacement/`) uses his flyer's wording and nothing more: check it, especially "many Ford Transits are fitted with a wet belt".
 - Which makes and models have wet belts (the FAQ names some Peugeot, Citroën, DS, Vauxhall and Ford models).
 - The warning signs list.
 - That "we come to you" and "at your location" match how he works.

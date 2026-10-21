@@ -3,6 +3,7 @@ import Layout from '@/components/Layout';
 import Home from '@/pages/Home';
 import WetBelt from '@/pages/WetBelt';
 import AreaPage from '@/pages/AreaPage';
+import TransitPage from '@/pages/TransitPage';
 import Contact from '@/pages/Contact';
 import NotFound from '@/pages/NotFound';
 
@@ -13,6 +14,7 @@ export function AppRoutes() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/wet-belt-changes" element={<WetBelt />} />
+        <Route path="/ford-transit-wet-belt-replacement" element={<TransitPage />} />
         <Route path="/mobile-mechanic-leeds" element={<AreaPage />} />
         <Route path="/mobile-mechanic-wakefield" element={<AreaPage />} />
         <Route path="/mobile-mechanic-bradford" element={<AreaPage />} />

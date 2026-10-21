@@ -56,6 +56,7 @@ export const site = {
 
 export const nav = [
   { path: '/wet-belt-changes/', label: 'Wet belt changes' },
+  { path: '/ford-transit-wet-belt-replacement/', label: 'Ford Transit wet belts' },
   { path: '/contact/', label: 'Contact' },
 ];
 

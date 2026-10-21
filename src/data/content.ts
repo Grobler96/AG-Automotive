@@ -30,12 +30,12 @@ export const services = {
 
 export const steps = [
   { n: '01', title: 'Get in touch', text: 'Call or text with the make, model and year of the car and what you need doing.' },
-  { n: '02', title: 'We come to you', text: `AG Automotive is a mobile mechanic, so the work is done where the car is, anywhere in ${area}.` },
+  { n: '02', title: 'We come to you', text: `AG Automotive is a mobile mechanic, so the work is done where the car is: at home, at work or anywhere convenient in ${area}.` },
   { n: '03', title: 'Job done', text: 'The work is carried out at your location, so there is no trip to a garage.' },
 ];
 
 export const faqs = [
-  { q: 'What is a mobile mechanic?', a: 'A mobile mechanic comes to you, at home or wherever the car is, instead of you taking the car to a garage.' },
+  { q: 'What is a mobile mechanic?', a: 'A mobile mechanic comes to you, at home, at work or anywhere convenient, instead of you taking the car to a garage.' },
   { q: 'Which areas do you cover?', a: `We cover all of ${area}: Leeds, Bradford, Wakefield, Huddersfield, Halifax and the towns around them. Call or text with your postcode and we will confirm.` },
   { q: 'What vehicles do you work on?', a: 'Cars, vans and motorhomes.' },
   { q: 'What do you specialise in?', a: 'Wet belt changes. We also carry out servicing and repairs, from brakes and clutches to batteries and diagnostics, so call or text and ask about yours.' },
@@ -67,15 +67,25 @@ export const signs = {
 
 export const wetBeltSteps = [
   { n: '01', title: 'Get in touch', text: 'Call or text with the make, model and year of the car and what is happening.' },
-  { n: '02', title: 'We come to you', text: `AG Automotive is a mobile mechanic, so the work is done where you are in ${area}.` },
+  { n: '02', title: 'We come to you', text: `AG Automotive is a mobile mechanic, so the work is done where you are: at home, at work or anywhere convenient in ${area}.` },
   { n: '03', title: 'Belt changed', text: 'The old belt comes out, the new one goes in and the engine goes back together.' },
 ];
+
+export const wetBeltIncludes = {
+  title: 'What a wet belt change includes',
+  items: [
+    'Wet belt kit replacement: the belt, tensioners, seals and bolts',
+    'Engine reassembly with new oil',
+    'A full system check and test drive',
+  ],
+  note: 'Timing belt in a dry cover? We do those too: a complete kit replacement, with the belt, tensioner, idler and water pump if required.',
+};
 
 export const wetBeltFaqs = [
   { q: 'What is a wet belt?', a: 'A wet belt is a timing belt that runs inside the engine in oil, rather than in a dry cover like a traditional timing belt.' },
   { q: 'Which cars have a wet belt?', a: 'Several manufacturers have used wet belts in some petrol engines, including some Peugeot, Citroën, DS, Vauxhall and Ford models. If you are not sure about yours, ask us.' },
   { q: 'How often should a wet belt be changed?', a: 'It depends on the manufacturer and the engine. Follow your handbook, and do not wait for warning signs. Ask us if you want a hand working out when yours is due.' },
-  { q: 'Can you do it at my home or work?', a: `We are a mobile mechanic covering ${area}, so we come to you. Tell us where the car is when you get in touch.` },
+  { q: 'Can you do it at my home or work?', a: `Yes. We are a mobile mechanic covering ${area}, so we come to you: at home, at work or anywhere convenient. Tell us where the car is when you get in touch.` },
   { q: 'How much does a wet belt change cost?', a: 'It depends on the car, so we quote for each one. Call or text us with your make, model and year.' },
 ];
 
@@ -84,3 +94,24 @@ export const contactLines = [
   site.hours.length > 0 && { label: 'Hours', value: site.hours.join('. ') },
   site.email && { label: 'Email', value: site.email, href: `mailto:${site.email}` },
 ].filter(Boolean) as { label: string; value: string; href?: string }[];
+
+// ---- the Ford Transit page (the client's own wording from his Transit flyer)
+
+export const transit = {
+  lead: 'Many Ford Transits are fitted with a wet belt: the timing belt runs inside the engine, in oil.',
+  problem: [
+    'Many Ford Transits are fitted with a wet belt: the timing belt runs inside the engine, in oil.',
+    'Over time, the belt absorbs oil, becomes saturated and starts to break down.',
+    'If the wet belt fails, it can destroy the engine.',
+  ],
+  signsTitle: 'Signs to look out for',
+  signs: ['Dashboard warning lights', 'Poor performance or rough running'],
+  signsNote: 'These can have other causes, so a proper look comes first. Do not ignore them: get your Transit checked early.',
+};
+
+export const transitFaqs = [
+  { q: 'Does my Ford Transit have a wet belt?', a: 'Many Ford Transits do. Call or text with the year and engine and we will help you find out.' },
+  { q: 'What does a wet belt change on a Transit include?', a: 'Wet belt kit replacement (the belt, tensioners, seals and bolts), engine reassembly with new oil, and a full system check and test drive.' },
+  { q: 'Can you do it at my home or work?', a: `Yes. We are a mobile mechanic covering ${area}, so we come to you: at home, at work or anywhere convenient.` },
+  { q: 'How much does it cost?', a: 'It depends on the van, so we quote for each one. Call or text us with the year and engine.' },
+];
