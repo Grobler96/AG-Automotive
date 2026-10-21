@@ -4,6 +4,7 @@ import { MessageSquare, Phone } from 'lucide-react';
 import { callouts, chapters, film, frameUrl, heroEnd, outroStart, steps } from '@/data/film';
 import { site, sms, tel } from '@/config/site';
 import { asset } from '@/lib/asset';
+import { createFrameStore, type FrameStore } from './filmStore';
 
 const stepFor = (v: number) => steps.reduce((n, s, i) => (v >= s.start ? i : n), 0);
 const phaseFor = (v: number) => {
@@ -60,7 +61,7 @@ function StaticStory() {
 function PinnedFilm() {
   const section = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
-  const images = useRef<(HTMLImageElement | undefined)[]>([]);
+  const store = useRef<FrameStore | null>(null);
   const target = useRef(0);
   const dirty = useRef(true);
   const [wide, setWide] = useState(() => typeof window !== 'undefined' && window.innerWidth > window.innerHeight);
@@ -88,82 +89,68 @@ function PinnedFilm() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // frames load coarse first (every 12th, then 6th ...) so the film is scrubbable almost at once
+  // all frames are downloaded, but only those near the playhead are decoded (see filmStore.ts)
   useEffect(() => {
-    let cancelled = false;
-    images.current = [];
     setLoaded(0);
-    const order: number[] = [];
-    const seen = new Set<number>();
-    for (const stepSize of [12, 6, 3, 1]) {
-      for (let i = 0; i < film.frames; i += stepSize) if (!seen.has(i)) { seen.add(i); order.push(i); }
-    }
-    let next = 0, count = 0;
-    const pump = () => {
-      if (cancelled || next >= order.length) return;
-      const i = order[next++];
-      const img = new Image();
-      img.decoding = 'async';
-      img.onload = () => {
-        if (cancelled) return;
-        images.current[i] = img;
-        dirty.current = true;
-        if (++count % 6 === 0 || count === film.frames) setLoaded(Math.round((count / film.frames) * 100));
-        pump();
-      };
-      img.onerror = pump;
-      img.src = frameUrl(i, wide);
-    };
-    for (let k = 0; k < 6; k++) pump();
-    return () => { cancelled = true; };
+    const st = createFrameStore(
+      film.frames,
+      (i) => frameUrl(i, wide),
+      () => { dirty.current = true; },
+      (n) => { if (n % 6 === 0 || n === film.frames) setLoaded(Math.round((n / film.frames) * 100)); },
+    );
+    store.current = st;
+    st.setCenter(Math.round(target.current * (film.frames - 1)));
+    dirty.current = true;
+    return () => { st.dispose(); if (store.current === st) store.current = null; };
   }, [wide]);
 
   // draw loop: eases toward the scroll position and blends neighbouring frames, only while on screen
   useEffect(() => {
     const cv = canvas.current, sec = section.current;
     if (!cv || !sec) return;
-    let raf = 0, running = false, cur = target.current, drawn = -1;
+    const g = cv.getContext('2d', { alpha: false });
+    if (!g) return;
+    let raf = 0, running = false, cur = target.current, drawn = -1, lastT = 0, lastCenter = -1;
 
-    const nearest = (i: number) => {
-      for (let o = 0; o < film.frames; o++) {
-        const img = images.current[i - o] ?? images.current[i + o];
-        if (img) return img;
-      }
-      return undefined;
-    };
-    const paint = (g: CanvasRenderingContext2D, img: HTMLImageElement, alpha: number) => {
-      const s = Math.max(cv.width / img.naturalWidth, cv.height / img.naturalHeight);
-      const w = img.naturalWidth * s, h = img.naturalHeight * s;
+    const paint = (img: ImageBitmap, alpha: number) => {
+      const s = Math.max(cv.width / img.width, cv.height / img.height);
+      const w = img.width * s, h = img.height * s;
       g.globalAlpha = alpha;
       g.drawImage(img, (cv.width - w) / 2, (cv.height - h) / 2, w, h);
       g.globalAlpha = 1;
     };
     const draw = (p: number) => {
-      const g = cv.getContext('2d');
-      if (!g) return;
+      const st = store.current;
+      if (!st) return;
       const f = Math.min(Math.max(p, 0), 1) * (film.frames - 1);
       const i0 = Math.floor(f), t = f - i0;
-      const a = nearest(i0);
+      const a = st.get(i0);
       if (!a) return;
-      paint(g, a, 1);
-      const b = t > 0.03 ? nearest(Math.min(i0 + 1, film.frames - 1)) : undefined;
-      if (b && b !== a) paint(g, b, t);
+      paint(a, 1);
+      const b = t > 0.03 ? st.get(Math.min(i0 + 1, film.frames - 1)) : undefined;
+      if (b && b !== a) paint(b, t);
     };
     const size = () => {
       const r = cv.getBoundingClientRect();
-      const d = Math.min(window.devicePixelRatio || 1, 2);
-      cv.width = Math.max(1, Math.round(r.width * d));
-      cv.height = Math.max(1, Math.round(r.height * d));
+      // the frames are at most 1280 wide, so a bigger canvas only costs speed
+      const srcW = window.innerWidth > window.innerHeight ? 1280 : 960;
+      const scale = Math.min(window.devicePixelRatio || 1, srcW / Math.max(r.width, 1));
+      cv.width = Math.max(1, Math.round(r.width * scale));
+      cv.height = Math.max(1, Math.round(r.height * scale));
       dirty.current = true;
     };
-    const tick = () => {
+    const tick = (now: number) => {
       raf = requestAnimationFrame(tick);
+      const dt = Math.min(0.05, (now - lastT) / 1000);
+      lastT = now;
       const diff = target.current - cur;
-      cur = Math.abs(diff) < 0.0002 ? target.current : cur + diff * 0.14;
+      cur = Math.abs(diff) < 0.0002 ? target.current : cur + diff * (1 - Math.exp(-dt * 9));
+      const c = Math.round(cur * (film.frames - 1));
+      if (c !== lastCenter) { lastCenter = c; store.current?.setCenter(c); }
       if (cur !== drawn || dirty.current) { draw(cur); drawn = cur; dirty.current = false; }
     };
     const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !running) { running = true; tick(); }
+      if (e.isIntersecting && !running) { running = true; lastT = performance.now(); tick(lastT); }
       else if (!e.isIntersecting && running) { running = false; cancelAnimationFrame(raf); }
     }, { rootMargin: '200px' });
     size();
@@ -178,7 +165,7 @@ function PinnedFilm() {
 
   return (
     <section ref={section} className="relative" style={{ height: `${film.length * 100}vh` }} aria-label="How a wet belt change works: scroll to take the engine apart">
-      <div className="sticky top-16 h-[calc(100vh-8.5rem)] h-[calc(100svh-8.5rem)] md:h-[calc(100vh-4rem)] md:h-[calc(100svh-4rem)] overflow-hidden bg-ink">
+      <div className="sticky top-16 h-[calc(100vh-8.5rem)] h-[calc(100svh-8.5rem)] md:h-[calc(100vh-4rem)] md:h-[calc(100svh-4rem)] overflow-hidden bg-ink [contain:layout_paint]">
         {/* landscape screens: full bleed. Portrait screens: a square window near the top (words go below), faded into the black */}
         <div className={wide ? 'absolute inset-0' : 'absolute inset-x-0 top-9 aspect-square [mask-image:linear-gradient(to_bottom,transparent,#000_12%,#000_88%,transparent)]'}>
           <canvas ref={canvas} role="img" aria-label="An engine coming apart, the old wet belt coming off and a new one going on" className="absolute inset-0 w-full h-full" />
