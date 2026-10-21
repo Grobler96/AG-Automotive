@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { MessageSquare, Phone } from 'lucide-react';
 import { AreaIntro, AreasSection, Faq, HowItWorks, QuoteSection, Reviews, Speciality } from '@/components/Sections';
 import { areaByPath, areas } from '@/data/areas';
+import HeroLogo from '@/components/HeroLogo';
 import { useSEO } from '@/lib/useSEO';
 import { site, sms, tel } from '@/config/site';
 import NotFound from './NotFound';
@@ -16,6 +17,7 @@ export default function AreaPage() {
     <>
       <section className="relative overflow-hidden bg-ink">
         <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(70%_80%_at_80%_20%,rgba(126,211,33,0.16),transparent)]" />
+        <HeroLogo />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 py-20 sm:py-28">
           <nav aria-label="Breadcrumb" className="mono !text-paper/50 mb-6">
             <Link to="/" className="hover:text-lime">Home</Link> / <span className="text-lime">Mobile mechanic in {area.name}</span>
