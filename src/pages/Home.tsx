@@ -1,5 +1,5 @@
 import EngineFilm from '@/components/EngineFilm';
-import { Faq, HowItWorks, Intro, QuoteSection, Reviews, Services, Speciality } from '@/components/Sections';
+import { AreasSection, Faq, HowItWorks, Intro, QuoteSection, Reviews, Services, Speciality } from '@/components/Sections';
 import { useSEO } from '@/lib/useSEO';
 
 export default function Home() {
@@ -10,6 +10,7 @@ export default function Home() {
       <Intro />
       <Speciality />
       <Services />
+      <AreasSection />
       <HowItWorks />
       <Reviews />
       <Faq title="Questions" />

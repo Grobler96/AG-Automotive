@@ -1,4 +1,4 @@
-import { Explainer, Faq, HowItWorks, QuoteSection, Reviews, Signs } from '@/components/Sections';
+import { AreasSection, Explainer, Faq, HowItWorks, QuoteSection, Reviews, Signs } from '@/components/Sections';
 import { wetBeltFaqs, wetBeltSteps } from '@/data/content';
 import { useSEO } from '@/lib/useSEO';
 import { site, sms, tel } from '@/config/site';
@@ -25,6 +25,7 @@ export default function WetBelt() {
       <HowItWorks items={wetBeltSteps} />
       <Reviews />
       <Faq items={wetBeltFaqs} title="Wet belt FAQs" />
+      <AreasSection />
       <QuoteSection />
     </>
   );

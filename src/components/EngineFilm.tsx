@@ -64,7 +64,11 @@ function PinnedFilm() {
   const store = useRef<FrameStore | null>(null);
   const target = useRef(0);
   const dirty = useRef(true);
-  const [wide, setWide] = useState(() => typeof window !== 'undefined' && window.innerWidth > window.innerHeight);
+  // These start the same on the server and in the browser (so the page can hydrate), then the effect below reads the real screen
+  const [wide, setWide] = useState(true);
+  const [ready, setReady] = useState(false);
+  const [drawn, setDrawn] = useState(false);
+  const firstDraw = useRef(false);
   const [phase, setPhase] = useState('hero');
   const [step, setStep] = useState(0);
   const [co, setCo] = useState(-1);
@@ -84,13 +88,16 @@ function PinnedFilm() {
 
   // landscape screens get landscape frames, portrait screens get portrait frames
   useEffect(() => {
-    const onResize = () => setWide(window.innerWidth > window.innerHeight);
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
+    const read = () => setWide(window.innerWidth > window.innerHeight);
+    read();
+    setReady(true);
+    window.addEventListener('resize', read);
+    return () => window.removeEventListener('resize', read);
   }, []);
 
   // all frames are downloaded, but only those near the playhead are decoded (see filmStore.ts)
   useEffect(() => {
+    if (!ready) return;
     setLoaded(0);
     const st = createFrameStore(
       film.frames,
@@ -102,7 +109,7 @@ function PinnedFilm() {
     st.setCenter(Math.round(target.current * (film.frames - 1)));
     dirty.current = true;
     return () => { st.dispose(); if (store.current === st) store.current = null; };
-  }, [wide]);
+  }, [wide, ready]);
 
   // draw loop: eases toward the scroll position and blends neighbouring frames, only while on screen
   useEffect(() => {
@@ -127,6 +134,7 @@ function PinnedFilm() {
       const a = st.get(i0);
       if (!a) return;
       paint(a, 1);
+      if (!firstDraw.current) { firstDraw.current = true; setDrawn(true); }
       const b = t > 0.03 ? st.get(Math.min(i0 + 1, film.frames - 1)) : undefined;
       if (b && b !== a) paint(b, t);
     };
@@ -166,9 +174,14 @@ function PinnedFilm() {
   return (
     <section ref={section} className="relative" style={{ height: `${film.length * 100}vh` }} aria-label="How a wet belt change works: scroll to take the engine apart">
       <div className="sticky top-16 h-[calc(100vh-8.5rem)] h-[calc(100svh-8.5rem)] md:h-[calc(100vh-4rem)] md:h-[calc(100svh-4rem)] overflow-hidden bg-ink [contain:layout_paint]">
-        {/* landscape screens: full bleed. Portrait screens: a square window near the top (words go below), faded into the black */}
-        <div className={wide ? 'absolute inset-0' : 'absolute inset-x-0 top-9 aspect-square [mask-image:linear-gradient(to_bottom,transparent,#000_12%,#000_88%,transparent)]'}>
-          <canvas ref={canvas} role="img" aria-label="An engine coming apart, the old wet belt coming off and a new one going on" className="absolute inset-0 w-full h-full" />
+        {/* landscape screens: full bleed. Portrait screens: a square window near the top (words go below), faded into the black.
+            Orientation is CSS, so the server rendered page is already right. The poster is the first frame: it shows at once and until the canvas is ready. */}
+        <div className="absolute landscape:inset-0 portrait:inset-x-0 portrait:top-9 portrait:aspect-square portrait:[mask-image:linear-gradient(to_bottom,transparent,#000_12%,#000_88%,transparent)]">
+          <picture>
+            <source media="(orientation: portrait)" srcSet={frameUrl(0, false)} />
+            <img src={frameUrl(0, true)} alt="" className="absolute inset-0 w-full h-full object-cover" {...({ fetchpriority: 'high' } as Record<string, string>)} />
+          </picture>
+          <canvas ref={canvas} role="img" aria-label="An engine coming apart, the old wet belt coming off and a new one going on" className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${drawn ? 'opacity-100' : 'opacity-0'}`} />
         </div>
         <div aria-hidden="true" className="film-grain absolute inset-0 pointer-events-none" />
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none bg-[radial-gradient(120%_90%_at_50%_45%,transparent_45%,rgba(5,5,5,0.85))]" />
@@ -187,7 +200,7 @@ function PinnedFilm() {
           <div className="hidden md:block absolute right-4 top-1/2 -translate-y-1/2 h-40 w-px bg-line">
             <motion.div style={{ scaleY: fill }} className="origin-top w-full h-full bg-lime shadow-[0_0_10px_rgba(126,211,33,0.8)]" />
           </div>
-          {loaded < 100 && <div className="absolute bottom-2 left-3 sm:left-4 mono text-lime/50">Loading film {loaded}%</div>}
+          {ready && loaded < 100 && <div className="absolute bottom-2 left-3 sm:left-4 mono text-lime/50">Loading film {loaded}%</div>}
         </div>
 
         {/* callout lines on the film (desktop) */}
@@ -204,7 +217,7 @@ function PinnedFilm() {
         </AnimatePresence>
 
         {/* words */}
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
           {phase === 'hero' && (
             <motion.div key="hero" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.45 }}
               className="absolute inset-x-0 bottom-8 md:bottom-12 px-5 sm:px-10 max-w-3xl">
@@ -236,5 +249,8 @@ function PinnedFilm() {
 
 export default function EngineFilm() {
   const reduce = useReducedMotion();
-  return reduce ? <StaticStory /> : <PinnedFilm />;
+  // the server and the first browser render both show the film; reduced motion switches to the plain story straight after
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted && reduce ? <StaticStory /> : <PinnedFilm />;
 }
