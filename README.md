@@ -35,6 +35,10 @@ To use a different film, re-run the script, set `film.frames` in `src/data/film.
 - `formEndpoint`: a form service URL (for example Formspree). While empty, the quote section shows Call and Text buttons instead of a form.
 - `reviews`: real customer reviews, word for word, with permission.
 
+## Job photos
+
+`public/work` holds photos from the client's real jobs (list and captions in `src/data/work.ts`), shown in a "From real jobs" gallery on the homepage, the wet belt page and the Ford Transit page. Only engine and parts photos are used: the photos that showed number plates, a customer's home or another company's van were left out, and the files carry no location data. Captions describe only what the photo shows. To add more, follow the same rule: no plates, no identifiable homes or people, and strip the metadata.
+
 ## Claims deliberately left off the site
 
 The client's flyers also say "all work guaranteed", "5 star service, check our reviews", "competitive prices", "honest prices", "fast turnaround" and "a small job now saves big bills later". None are on the site: a guarantee needs its exact terms, there are no reviews to point to yet, and the rest cannot be shown to be true. Add any of them only when the client confirms it and can back it up.

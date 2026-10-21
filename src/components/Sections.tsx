@@ -3,6 +3,8 @@ import { ArrowRight, Check, Mail, MessageSquare, Phone } from 'lucide-react';
 import Reveal from './Reveal';
 import { Link } from 'react-router-dom';
 import { areas, type Area } from '@/data/areas';
+import { workIntro, workPhotos } from '@/data/work';
+import { asset } from '@/lib/asset';
 import { contactLines, explainer, faqs, intro, services, signs, speciality, steps } from '@/data/content';
 import { site, sms, tel } from '@/config/site';
 
@@ -119,6 +121,30 @@ export function VehicleBand() {
         <span>Covering all {site.area}</span>
       </div>
     </div>
+  );
+}
+
+export function WorkGallery({ title = workIntro.title }: { title?: string }) {
+  return (
+    <Wrap tone="carbon">
+      <Reveal>
+        <p className="mono">// The work</p>
+        <h2 className="mt-3 font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.98]">{title}</h2>
+        <p className="mt-4 max-w-2xl text-paper/70">{workIntro.text}</p>
+      </Reveal>
+      <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        {workPhotos.map((p, i) => (
+          <Reveal key={p.src} delay={(i % 4) * 0.05} className="h-full">
+            <li className="list-none h-full">
+              <figure className="h-full flex flex-col overflow-hidden rounded-lg border border-line bg-panel">
+                <img src={asset(p.src)} alt={p.alt} width="900" height="1200" loading="lazy" decoding="async" className="w-full aspect-[3/4] object-cover" />
+                <figcaption className="flex-1 p-3 text-sm text-paper/75">{p.caption}</figcaption>
+              </figure>
+            </li>
+          </Reveal>
+        ))}
+      </ul>
+    </Wrap>
   );
 }
 

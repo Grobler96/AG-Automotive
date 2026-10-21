@@ -1,4 +1,4 @@
-import { AreasSection, Explainer, Includes, Wrap, Faq, HowItWorks, QuoteSection, Reviews, Signs } from '@/components/Sections';
+import { AreasSection, Explainer, Includes, WorkGallery, Wrap, Faq, HowItWorks, QuoteSection, Reviews, Signs } from '@/components/Sections';
 import { wetBeltFaqs, wetBeltIncludes, wetBeltSteps } from '@/data/content';
 import HeroLogo from '@/components/HeroLogo';
 import { useSEO } from '@/lib/useSEO';
@@ -26,6 +26,7 @@ export default function WetBelt() {
       <Explainer />
       <Signs />
       <Includes title={wetBeltIncludes.title} items={wetBeltIncludes.items} note={wetBeltIncludes.note} />
+      <WorkGallery />
       <Wrap tone="carbon">
         <div className="flex flex-wrap items-center justify-between gap-6 rounded-xl border border-lime/40 bg-panel p-6 sm:p-8">
           <div>

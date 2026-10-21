@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { MessageSquare, Phone } from 'lucide-react';
-import { AreasSection, Faq, HowItWorks, Includes, QuoteSection, Reveal, Wrap } from '@/components/Sections';
+import { AreasSection, Faq, HowItWorks, Includes, QuoteSection, Reveal, WorkGallery, Wrap } from '@/components/Sections';
 import HeroLogo from '@/components/HeroLogo';
 import { transit, transitFaqs, wetBeltIncludes, wetBeltSteps } from '@/data/content';
 import { useSEO } from '@/lib/useSEO';
@@ -58,6 +58,7 @@ export default function TransitPage() {
       </Wrap>
 
       <Includes title="What the job includes" items={wetBeltIncludes.items} />
+      <WorkGallery />
       <HowItWorks items={wetBeltSteps} />
       <Faq items={transitFaqs} title="Ford Transit wet belt FAQs" />
       <AreasSection />
