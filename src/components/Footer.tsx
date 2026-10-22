@@ -8,7 +8,9 @@ export default function Footer() {
     <footer className="bg-carbon border-t border-line">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 grid gap-10 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
         <div>
-          <img src={asset('logo-full.webp')} alt={`${site.name}, ${site.strap}`} width="720" height="487" className="w-56 h-auto" loading="lazy" />
+          <Link to="/" aria-label={`${site.name}, ${site.strap}: home`} className="inline-block">
+            <img src={asset('logo-full.webp')} alt="" width="720" height="487" className="w-56 h-auto" loading="lazy" />
+          </Link>
           {site.area && <p className="mt-4 max-w-xs text-paper/65">Mobile mechanic covering {site.area}. Wet belt changes are our speciality.</p>}
         </div>
         <div>

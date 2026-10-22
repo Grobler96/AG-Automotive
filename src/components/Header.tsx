@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 h-16 bg-ink/90 backdrop-blur border-b border-line">
       <div className="mx-auto max-w-7xl h-full px-4 sm:px-6 flex items-center justify-between gap-4">
-        <Link to="/" className="flex items-center gap-2 sm:gap-3 shrink-0" aria-label={`${site.name}, ${site.strap}: home`}>
+        <Link to="/" onClick={() => pathname === '/' && window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2 sm:gap-3 shrink-0" aria-label={`${site.name}, ${site.strap}: home`}>
           <img src={asset('logo-mark.webp')} alt="" width="480" height="205" className="h-6 sm:h-8 w-auto" />
           <span className="flex items-baseline gap-3">
             <span className="font-display font-bold text-base sm:text-xl whitespace-nowrap tracking-wide text-lime">AG AUTOMOTIVE</span>
