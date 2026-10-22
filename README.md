@@ -39,6 +39,17 @@ To use a different film, re-run the script, set `film.frames` in `src/data/film.
 
 `public/work` holds photos from the client's real jobs (list and captions in `src/data/work.ts`), shown in a "From real jobs" gallery on the homepage, the wet belt page and the Ford Transit page. The van photos ("We come to you") have customers' number plates blurred; photos showing homes, street names or another company's vehicles were left out. The files carry no location data. Captions describe only what the photo shows. To add more, follow the same rule: no plates, no identifiable homes or people, and strip the metadata.
 
+## Launch checklist (audited)
+
+Checked against the "what makes a site real" and "before you launch" lists:
+
+- Done: custom 404 page, call to action in the first screen (plus a Call and Text bar on phones), a unique title and description on every page, social share image, favicon and app icons, `robots.txt`, `sitemap.xml`, alt text on every image, mobile layout and menu, hosting on HTTPS, privacy policy (`/privacy/`) and website terms (`/terms/`).
+- Not needed, because the site has no backend: API keys, database keys and row level security, server side auth, passwords and sessions, input validation, SQL queries, file uploads, rate limiting and bot protection. Nothing secret is in the repo, and `npm audit --omit=dev` reports 0 issues (the remaining audit notices are in build tools and are not shipped).
+- Fonts are served from this site, not Google, so no visitor data goes to a third party. There are no cookies, so no cookie banner is needed.
+- GitHub Pages cannot set custom security headers. Moving to Cloudflare Pages or Netlify later would allow them.
+- Waiting on the client: a contact form and thank you page (set `formEndpoint` in `src/config/site.ts`), analytics (needs an account; add a cookie free tool and update the privacy page when added), and a postal address if he wants one shown (he works from his van, so none is shown).
+- If a form or analytics is added, update `src/pages/Legal.tsx` first.
+
 ## Claims deliberately left off the site
 
 The client's flyers also say "all work guaranteed", "5 star service, check our reviews", "competitive prices", "honest prices", "fast turnaround" and "a small job now saves big bills later". None are on the site: a guarantee needs its exact terms, there are no reviews to point to yet, and the rest cannot be shown to be true. Add any of them only when the client confirms it and can back it up.
