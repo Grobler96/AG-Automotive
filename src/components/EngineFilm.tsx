@@ -25,13 +25,14 @@ function Actions({ className = '' }: { className?: string }) {
   );
 }
 
+/** The film sits under the wet belt page heading, so its own opening words are a second level heading. */
 function HeroText() {
   return (
     <>
-      <p className="mono">{site.name} · {site.strap}{site.area ? ` · ${site.area}` : ''}</p>
-      <h1 className="mt-3 font-display font-bold uppercase leading-[0.95] text-[clamp(2.1rem,8.5vw,5rem)]">
-        Wet belt changes.<br /><span className="text-lime">We come to you.</span>
-      </h1>
+      <p className="mono">{site.name} · The wet belt job, step by step</p>
+      <h2 className="mt-3 font-display font-bold uppercase leading-[0.95] text-[clamp(2.1rem,8.5vw,5rem)]">
+        Watch it<br /><span className="text-lime">come apart.</span>
+      </h2>
     </>
   );
 }
@@ -39,7 +40,7 @@ function HeroText() {
 /** Reduced motion: no pinned film, just the story as plain content. */
 function StaticStory() {
   return (
-    <section className="relative bg-ink" aria-label="How a wet belt change works">
+    <section id="film" className="relative bg-ink" aria-label="How a wet belt change works">
       <img src={asset('film/engine/d/001.webp')} alt="" className="w-full max-h-[70vh] object-cover" />
       <div className="mx-auto max-w-5xl px-4 sm:px-6 py-12">
         <HeroText />
@@ -172,7 +173,7 @@ function PinnedFilm() {
   const callout = wide && co >= 0 ? callouts[co] : null;
 
   return (
-    <section ref={section} className="relative" style={{ height: `${film.length * 100}vh` }} aria-label="How a wet belt change works: scroll to take the engine apart">
+    <section id="film" ref={section} className="relative scroll-mt-16" style={{ height: `${film.length * 100}vh` }} aria-label="How a wet belt change works: scroll to take the engine apart">
       <div className="sticky top-16 h-[calc(100vh-8.5rem)] h-[calc(100svh-8.5rem)] md:h-[calc(100vh-4rem)] md:h-[calc(100svh-4rem)] overflow-hidden bg-ink [contain:layout_paint]">
         {/* landscape screens: full bleed. Portrait screens: a square window near the top (words go below), faded into the black.
             Orientation is CSS, so the server rendered page is already right. The poster is the first frame: it shows at once and until the canvas is ready. */}

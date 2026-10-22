@@ -8,11 +8,11 @@ import { site } from '@/config/site';
 const area = site.area;
 
 export const intro = {
-  title: 'The mechanic that comes to you',
+  title: 'A workshop on wheels',
   lead: `No garage run. AG Automotive brings the workshop to your drive, your work or wherever the vehicle is parked, across all of ${area}.`,
   cards: [
     { kicker: '01', title: 'We come to you', text: 'At home, at work or wherever it is parked. Your vehicle stays put and the van pulls up beside it.' },
-    { kicker: '02', title: 'Wet belt specialist', text: 'It is the job we are known for. Watch the film above, then read the full story on the wet belt page.' },
+    { kicker: '02', title: 'Wet belt specialist', text: 'It is the job we are known for. Watch a wet belt change and read the full story on the wet belt page.' },
     { kicker: '03', title: 'Cars, vans, motorhomes', text: 'Whatever you drive, call or text with the make, model and year and tell us what it needs.' },
     { kicker: '04', title: `All of ${area}`, text: 'Leeds, Bradford, Wakefield, Huddersfield, Halifax and every town around them.' },
   ],

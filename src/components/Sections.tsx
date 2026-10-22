@@ -107,15 +107,18 @@ export function Speciality() {
   return (
     <Wrap tone="carbon">
       <Reveal>
-        <div className="grid gap-8 md:grid-cols-[1.3fr_1fr] items-center rounded-xl border border-lime/40 bg-panel p-6 sm:p-10 shadow-glow">
+        <div className="grid gap-8 md:grid-cols-[1.1fr_1fr] items-center rounded-xl border border-lime/40 bg-panel p-6 sm:p-10 shadow-glow">
           <div>
             <p className="mono">// Specialist work</p>
             <h2 className="mt-3 font-display font-bold uppercase text-3xl sm:text-4xl leading-[0.98]">{speciality.title}</h2>
             <p className="mt-4 text-lg text-paper/80 max-w-xl">{speciality.text}</p>
+            <Link to="/wet-belt-changes/" className="btn btn-lime mt-6">Everything about wet belts <ArrowRight size={16} aria-hidden="true" /></Link>
           </div>
-          <div className="md:justify-self-end">
-            <Link to="/wet-belt-changes/" className="btn btn-lime">Everything about wet belts <ArrowRight size={16} aria-hidden="true" /></Link>
-          </div>
+          <Link to="/wet-belt-changes/" className="group relative block overflow-hidden rounded-lg border border-line" aria-label="Watch a wet belt change, on the wet belt page">
+            <img src={asset('film/engine/d/001.webp')} alt="An engine, the start of the wet belt film" width="1280" height="720" loading="lazy" decoding="async" className="w-full aspect-video object-cover transition-transform duration-500 group-hover:scale-105" />
+            <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent" />
+            <span className="absolute bottom-3 left-4 mono text-butter">Watch a wet belt change <ArrowRight size={12} className="inline" aria-hidden="true" /></span>
+          </Link>
         </div>
       </Reveal>
     </Wrap>
