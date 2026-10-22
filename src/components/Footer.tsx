@@ -37,6 +37,7 @@ export default function Footer() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-5 flex flex-wrap items-center justify-between gap-3 text-sm text-paper/55">
           <p>&copy; {new Date().getFullYear()} {site.name}</p>
           {/* a normal followable link, and no noreferrer, so aibyao.com sees the visits it sends */}
+          <span className="flex gap-4"><Link to="/privacy/" className="hover:text-lime">Privacy</Link><Link to="/terms/" className="hover:text-lime">Terms</Link></span>
           <a href={site.credit.href} target="_blank" rel="noopener" className="text-paper/80 underline decoration-lime/60 underline-offset-4 hover:text-lime">{site.credit.label}</a>
         </div>
       </div>

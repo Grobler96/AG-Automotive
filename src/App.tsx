@@ -4,6 +4,7 @@ import Home from '@/pages/Home';
 import WetBelt from '@/pages/WetBelt';
 import AreaPage from '@/pages/AreaPage';
 import TransitPage from '@/pages/TransitPage';
+import { Privacy, Terms } from '@/pages/Legal';
 import Contact from '@/pages/Contact';
 import NotFound from '@/pages/NotFound';
 
@@ -19,6 +20,8 @@ export function AppRoutes() {
         <Route path="/mobile-mechanic-wakefield" element={<AreaPage />} />
         <Route path="/mobile-mechanic-bradford" element={<AreaPage />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

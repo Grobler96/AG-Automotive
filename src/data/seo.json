@@ -42,5 +42,15 @@
     "title": "Page not found | AG Automotive",
     "description": "That page could not be found.",
     "noindex": true
+  },
+  "/privacy": {
+    "title": "Privacy policy | AG Automotive",
+    "description": "How AG Automotive handles your information: what this website collects, what we keep when you call, text or email, and your rights.",
+    "crumb": "Privacy policy"
+  },
+  "/terms": {
+    "title": "Website terms | AG Automotive",
+    "description": "The terms for using the AG Automotive website. Information on this site is general; we quote for each job.",
+    "crumb": "Website terms"
   }
 }
