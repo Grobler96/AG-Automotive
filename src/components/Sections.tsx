@@ -125,13 +125,34 @@ export function Speciality() {
   );
 }
 
-/** The lime strip from his flyer: what he works on, and where. */
+/** The lime strip from his flyer: what he works on, and where. A slow ticker, still for reduced motion. */
 export function VehicleBand() {
+  const items = [...site.vehicles.map((v) => v[0].toUpperCase() + v.slice(1)), `Covering all ${site.area}`, 'We come to you', 'Wet belt specialists'];
+  const track = (hidden: boolean) => (
+    <ul className="flex shrink-0 items-center" aria-hidden={hidden || undefined}>
+      {items.map((t) => (
+        <li key={t} className="flex items-center whitespace-nowrap">
+          <span className="px-6 sm:px-9">{t}</span>
+          <span aria-hidden="true" className="h-1.5 w-1.5 rotate-45 bg-ink/70" />
+        </li>
+      ))}
+    </ul>
+  );
   return (
-    <div className="bg-lime text-ink">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex flex-wrap items-center justify-center gap-x-8 gap-y-1 font-display font-bold uppercase tracking-[0.25em] text-xs sm:text-sm">
+    <div className="band-shine relative overflow-hidden bg-lime text-ink">
+      <p className="sr-only">{items.join('. ')}.</p>
+      {/* moving ticker: four copies side by side, the whole row slides left by half its width (two copies), enough to cover very wide screens, so the loop has no jump */}
+      <div aria-hidden="true" className="band-fade motion-reduce:hidden py-3.5 font-display font-bold uppercase tracking-[0.25em] text-xs sm:text-sm">
+        <div className="band-marquee flex w-max">
+          {track(false)}
+          {track(true)}
+          {track(true)}
+          {track(true)}
+        </div>
+      </div>
+      <div aria-hidden="true" className="hidden motion-reduce:flex flex-wrap items-center justify-center gap-x-8 gap-y-1 px-4 py-3 font-display font-bold uppercase tracking-[0.25em] text-xs sm:text-sm">
         <span>{site.vehicles.join(' · ')}</span>
-        <span className="hidden sm:inline opacity-50">/</span>
+        <span className="opacity-50">/</span>
         <span>Covering all {site.area}</span>
       </div>
     </div>

@@ -31,10 +31,16 @@
   @keyframes grain { 0% { transform: translate(0,0); } 33% { transform: translate(-3%,2%); } 66% { transform: translate(2%,-3%); } 100% { transform: translate(0,0); } }
   .card3d-anim { animation: card3d-float 6s ease-in-out infinite; }
   @keyframes card3d-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  .band-marquee { animation: band-scroll 34s linear infinite; }
+  .band-marquee:hover { animation-play-state: paused; }
+  @keyframes band-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .band-fade { -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .band-shine::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,0.45) 50%, transparent 65%); transform: translateX(-100%); animation: band-sweep 7s ease-in-out infinite; }
+  @keyframes band-sweep { 0%, 55% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
   .scanline { animation: scan 5s linear infinite; }
   @keyframes scan { 0% { transform: translateY(-10%); opacity: 0; } 10% { opacity: .5; } 90% { opacity: .5; } 100% { transform: translateY(110%); opacity: 0; } }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .film-grain, .scanline { animation: none; }
+  .film-grain, .scanline, .band-marquee, .band-shine::after { animation: none; }
 }
