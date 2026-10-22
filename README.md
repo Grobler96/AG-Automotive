@@ -67,4 +67,6 @@ No prices, speed, guarantees, insurance, qualifications or experience claims are
 
 ## Hosting
 
-GitHub Pages: turn it on in the repo settings (Pages, Source: GitHub Actions). The workflow builds with `BASE_PATH=/AG-Automotive/`. For a custom domain, set `BASE_PATH` to `/` and `SITE_URL` to the domain in the workflow.
+The site lives at https://www.agautomotiveleeds.co.uk (Vercel, building with `npm run build`; no settings needed because `SITE_URL` defaults to this address). Every page's canonical link, social tags, structured data and sitemap use that address. The bare domain (agautomotiveleeds.co.uk) redirects to `www`.
+
+The GitHub Pages copy (workflow in `.github/workflows/deploy.yml`, built with `BASE_PATH=/AG-Automotive/`) still works as a backup, and its pages point at the real domain as their canonical address so search engines do not treat it as a duplicate. Once the real domain is settled, Pages can be switched off in the repo settings.

@@ -7,7 +7,7 @@
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
-const SITE_URL = (process.env.SITE_URL || 'https://grobler96.github.io/AG-Automotive').replace(/\/+$/, '');
+const SITE_URL = (process.env.SITE_URL || 'https://www.agautomotiveleeds.co.uk').replace(/\/+$/, '');
 const seo = JSON.parse(readFileSync('src/data/seo.json', 'utf8'));
 const app = readFileSync('src/App.tsx', 'utf8');
 const routes = [...app.matchAll(/path="\/([a-z0-9-]+)"/g)].map((m) => `/${m[1]}`);
