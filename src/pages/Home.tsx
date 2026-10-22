@@ -1,4 +1,4 @@
-import EngineFilm from '@/components/EngineFilm';
+import HomeHero from '@/components/HomeHero';
 import { AreasSection, VanStrip, VehicleBand, WorkGallery, Faq, HowItWorks, Intro, QuoteSection, Reviews, Services, Speciality } from '@/components/Sections';
 import { useSEO } from '@/lib/useSEO';
 
@@ -6,7 +6,7 @@ export default function Home() {
   useSEO();
   return (
     <>
-      <EngineFilm />
+      <HomeHero />
       <VehicleBand />
       <Intro />
       <Speciality />

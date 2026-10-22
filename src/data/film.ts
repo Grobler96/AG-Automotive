@@ -1,7 +1,7 @@
 import { asset } from '@/lib/asset';
 
 /**
- * The homepage scroll film: one continuous shot of an engine coming apart, the wet belt coming off and a new
+ * The wet belt page scroll film: one continuous shot of an engine coming apart, the wet belt coming off and a new
  * belt going on. Frames are made by scripts/make-film.sh from the finished clip:
  *   public/film/engine/d  landscape frames (1280x720) for landscape screens
  *   public/film/engine/m  4:3 frames (960x720) for portrait screens, shown in a window with the words below

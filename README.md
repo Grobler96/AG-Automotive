@@ -5,7 +5,7 @@ Vite, React, TypeScript, Tailwind and framer-motion. Deploys to GitHub Pages wit
 
 ## The idea
 
-The homepage opens with a pinned scroll film: one continuous shot of an engine coming apart in sections, the wet belt coming off, a new belt going on and the engine going back together. A code driven HUD (step counter, progress rail, scan line, callouts) sits on top.
+The wet belt page (`/wet-belt-changes/`) has a pinned scroll film under its heading: one continuous shot of an engine coming apart in sections, the wet belt coming off, a new belt going on and the engine going back together. A code driven HUD (step counter, progress rail, scan line, callouts) sits on top. The homepage opens with a normal hero (the van, the promise, Call and Text) and links to the film, because the client did not want the film as the first thing visitors see. The film frames only load on the wet belt page.
 
 - Smoothness: every frame is downloaded once but only the ~25 around the scroll position are decoded at full size (`src/components/filmStore.ts`), decoding runs off the main thread, and the canvas is capped to the frame resolution. Decoding all 252 at once would take about 1GB of memory and make the browser re-decode frames mid scroll.
 - Landscape screens get full bleed frames. Portrait screens get a square window at the top with the words below. Frames load coarse first and blend between neighbours.
