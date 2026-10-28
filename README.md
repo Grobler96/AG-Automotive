@@ -12,6 +12,10 @@ The wet belt page (`/wet-belt-changes/`) has a pinned scroll film under its head
 - With `prefers-reduced-motion` the film is replaced by the same story as plain content.
 - Phones get a Call and Text bar at the bottom at all times.
 
+## Access block
+
+`src/config/block.ts` has a switch, `active`. While it is `true`, every address on the site shows the "Access suspended" screen (`src/components/BlockedPage.tsx`) instead of the site, in the built HTML as well as in the browser. To lift it, set `active` to `false`, commit and merge: the hosts rebuild within a couple of minutes. The page and business details in the page head are untouched, so search listings do not change.
+
 ## Run it
 
 ```
