@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from '@/components/Layout';
+import BlockedPage from '@/components/BlockedPage';
+import { block } from '@/config/block';
 import Home from '@/pages/Home';
 import WetBelt from '@/pages/WetBelt';
 import AreaPage from '@/pages/AreaPage';
@@ -10,6 +12,8 @@ import NotFound from '@/pages/NotFound';
 
 // scripts/prerender.mjs reads the path="/..." routes from this file to build a static page for each one
 export function AppRoutes() {
+  // the access block replaces the whole site on every address (see src/config/block.ts)
+  if (block.active) return <BlockedPage />;
   return (
     <Routes>
       <Route element={<Layout />}>
