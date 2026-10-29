@@ -4,7 +4,7 @@
  * rebuild by themselves within a couple of minutes. Nothing else needs touching.
  */
 export const block = {
-  active: true,
+  active: false,
   title: 'Access suspended',
   headline: 'This website is temporarily unavailable.',
   message: 'It has been paused by its developer. If you are the owner of this website, please contact AI by AO to restore access.',
